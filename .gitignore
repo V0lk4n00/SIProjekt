@@ -1,4 +1,5 @@
 .idea
+migrations
 var
 vendor
 .php_cs.cache
