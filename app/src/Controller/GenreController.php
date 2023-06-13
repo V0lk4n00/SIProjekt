@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class LandingPageController.
+ * Class GenreController.
  */
 #[Route('/ebay/genres')]
 class GenreController extends AbstractController

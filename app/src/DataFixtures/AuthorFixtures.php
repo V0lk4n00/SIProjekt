@@ -1,6 +1,6 @@
 <?php
 /**
- * Task fixtures.
+ * Author fixtures.
  */
 
 namespace App\DataFixtures;
@@ -18,11 +18,11 @@ class AuthorFixtures extends AbstractBaseFixtures
     public function loadData(): void
     {
         for ($i = 0; $i < 10; ++$i) {
-            $task = new Author();
-            $task->setName($this->faker->sentence);
-            $task->setSurname($this->faker->sentence);
-            $task->setAlias($this->faker->sentence);
-            $this->manager->persist($task);
+            $author = new Author();
+            $author->setName($this->faker->sentence);
+            $author->setSurname($this->faker->sentence);
+            $author->setAlias($this->faker->sentence);
+            $this->manager->persist($author);
         }
 
         $this->manager->flush();

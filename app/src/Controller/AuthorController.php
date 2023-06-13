@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class LandingPageController.
+ * Class AuthorController.
  */
 #[Route('/ebay/authors')]
 class AuthorController extends AbstractController

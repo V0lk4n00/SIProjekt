@@ -18,9 +18,9 @@ class GenreFixtures extends AbstractBaseFixtures
     public function loadData(): void
     {
         for ($i = 0; $i < 10; ++$i) {
-            $task = new Genre();
-            $task->setGenreName($this->faker->sentence);
-            $this->manager->persist($task);
+            $genre = new Genre();
+            $genre->setGenreName($this->faker->sentence);
+            $this->manager->persist($genre);
         }
 
         $this->manager->flush();

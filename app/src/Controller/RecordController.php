@@ -1,62 +1,65 @@
 <?php
 /**
- * Record controller.
+ * Record list controller.
  */
 
 namespace App\Controller;
 
+use App\Entity\Record;
 use App\Repository\RecordRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class RecordController.
  */
-#[Route('/record')]
+#[Route('/ebay/records')]
 class RecordController extends AbstractController
 {
     /**
      * Index action.
      *
-     * @param RecordRepository $repository Record repository
+     * @param Request            $request          HTTP Request
+     * @param RecordRepository   $recordRepository Record repository
+     * @param PaginatorInterface $paginator        Paginator
      *
      * @return Response HTTP response
      */
     #[Route(
-        name: 'record_index',
+        name: 'ebay_records',
         methods: 'GET'
     )]
-    public function index(RecordRepository $repository): Response
+    public function index(Request $request, RecordRepository $recordRepository, PaginatorInterface $paginator): Response
     {
-        $records = $repository->findAll();
-
-        return $this->render(
-            'record/index.html.twig',
-            ['records' => $records]
+        $pagination = $paginator->paginate(
+            $recordRepository->queryAll(),
+            $request->query->getInt('page', 1),
+            RecordRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+
+        return $this->render('ebay/records/records.html.twig', ['pagination' => $pagination]);
     }
 
     /**
      * Show action.
      *
-     * @param RecordRepository $repository Record repository
-     * @param int              $id         Record id
+     * @param Record $record
      *
      * @return Response HTTP response
      */
     #[Route(
         '/{id}',
-        name: 'record_show',
+        name: 'ebay_records_show',
         requirements: ['id' => '[1-9]\d*'],
-        methods: 'GET'
+        methods: 'GET',
     )]
-    public function show(RecordRepository $repository, int $id): Response
+    public function show(Record $record): Response
     {
-        $record = $repository->findOneById($id);
-
         return $this->render(
-            'record/show.html.twig',
+            'ebay/records/show.html.twig',
             ['record' => $record]
         );
     }
