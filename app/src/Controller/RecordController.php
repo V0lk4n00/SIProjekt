@@ -6,8 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Record;
-use App\Repository\RecordRepository;
-use Knp\Component\Pager\PaginatorInterface;
+use App\Interface\RecordServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,11 +19,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class RecordController extends AbstractController
 {
     /**
+     * Record service.
+     */
+    private RecordServiceInterface $recordService;
+
+    /**
+     * Constructor.
+     * @param RecordServiceInterface $recordService
+     */
+    public function __construct(RecordServiceInterface $recordService)
+    {
+        $this->recordService = $recordService;
+    }
+
+
+    /**
      * Index action.
      *
-     * @param Request            $request          HTTP Request
-     * @param RecordRepository   $recordRepository Record repository
-     * @param PaginatorInterface $paginator        Paginator
+     * @param Request $request HTTP Request
      *
      * @return Response HTTP response
      */
@@ -32,12 +44,10 @@ class RecordController extends AbstractController
         name: 'ebay_records',
         methods: 'GET'
     )]
-    public function index(Request $request, RecordRepository $recordRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $recordRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            RecordRepository::PAGINATOR_ITEMS_PER_PAGE
+        $pagination = $this->recordService->getPaginatedList(
+            $request->query->getInt('page', 1)
         );
 
         return $this->render('ebay/records/records.html.twig', ['pagination' => $pagination]);

@@ -6,8 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Author;
-use App\Repository\AuthorRepository;
-use Knp\Component\Pager\PaginatorInterface;
+use App\Interface\AuthorServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,11 +19,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class AuthorController extends AbstractController
 {
     /**
+     * Author service.
+     */
+    private AuthorServiceInterface $authorService;
+
+    /**
+     * Constructor.
+     * @param AuthorServiceInterface $authorService
+     */
+    public function __construct(AuthorServiceInterface $authorService)
+    {
+        $this->authorService = $authorService;
+    }
+
+
+    /**
      * Index action.
      *
-     * @param Request            $request          HTTP Request
-     * @param AuthorRepository   $authorRepository Task repository
-     * @param PaginatorInterface $paginator        Paginator
+     * @param Request $request HTTP Request
      *
      * @return Response HTTP response
      */
@@ -32,12 +44,10 @@ class AuthorController extends AbstractController
         name: 'ebay_authors',
         methods: 'GET'
     )]
-    public function index(Request $request, AuthorRepository $authorRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $authorRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            AuthorRepository::PAGINATOR_ITEMS_PER_PAGE
+        $pagination = $this->authorService->getPaginatedList(
+            $request->query->getInt('page', 1)
         );
 
         return $this->render('ebay/authors/authors.html.twig', ['pagination' => $pagination]);

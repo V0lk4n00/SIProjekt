@@ -6,8 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Genre;
-use App\Repository\GenreRepository;
-use Knp\Component\Pager\PaginatorInterface;
+use App\Interface\GenreServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,11 +19,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class GenreController extends AbstractController
 {
     /**
+     * Genre service.
+     */
+    private GenreServiceInterface $genreService;
+
+    /**
+     * Constructor.
+     * @param GenreServiceInterface $genreService
+     */
+    public function __construct(GenreServiceInterface $genreService)
+    {
+        $this->genreService = $genreService;
+    }
+
+    /**
      * Index action.
      *
-     * @param Request            $request         HTTP Request
-     * @param GenreRepository    $genreRepository Genre repository
-     * @param PaginatorInterface $paginator       Paginator
+     * @param Request $request HTTP Request
      *
      * @return Response HTTP response
      */
@@ -32,12 +43,10 @@ class GenreController extends AbstractController
         name: 'ebay_genres',
         methods: 'GET'
     )]
-    public function index(Request $request, GenreRepository $genreRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $genreRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            GenreRepository::PAGINATOR_ITEMS_PER_PAGE
+        $pagination = $this->genreService->getPaginatedList(
+            $request->query->getInt('page', 1)
         );
 
         return $this->render('ebay/genres/genres.html.twig', ['pagination' => $pagination]);
