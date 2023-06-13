@@ -55,9 +55,9 @@
                     <thead>
                     <tr>
                         <th>{{ knp_pagination_sortable(pagination, 'ID', 'record.id') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Artist', 'record.idArtist') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Alias', 'record.author') }}</th>
                         <th>{{ knp_pagination_sortable(pagination, 'Title', 'record.title') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Genre', 'record.idGenre') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Genre', 'record.genre') }}</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -65,9 +65,9 @@
                     {% for record in pagination.items %}
                         <tr>
                             <td>{{ record.id }}</td>
-                            <td>{{ record.idArtist }}</td>
+                            <td>{{ record.author.alias }}</td>
                             <td>{{ record.title }}</td>
-                            <td>{{ record.idGenre }}</td>
+                            <td>{{ record.genre.genreName }}</td>
                             <td>
                                 <a href="{{ url('ebay_records_show', {id: record.id}) }}" title="View">
                                     View

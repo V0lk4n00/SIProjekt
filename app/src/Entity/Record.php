@@ -20,14 +20,20 @@ class Record
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $idArtist = null;
-
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column]
-    private ?int $idGenre = null;
+    /**
+     * Genre.
+     *
+     * @var Genre
+     */
+    #[ORM\ManyToOne(targetEntity: Genre::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Genre $genre = null;
+
+    #[ORM\ManyToOne]
+    private ?Author $author = null;
 
     /**
      * Primary key.
@@ -37,26 +43,6 @@ class Record
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getIdArtist(): ?int
-    {
-        return $this->idArtist;
-    }
-
-    /**
-     * @param int $idArtist
-     *
-     * @return $this
-     */
-    public function setIdArtist(int $idArtist): self
-    {
-        $this->idArtist = $idArtist;
-
-        return $this;
     }
 
     /**
@@ -80,21 +66,41 @@ class Record
     }
 
     /**
-     * @return int|null
+     * @return Genre|null
      */
-    public function getIdGenre(): ?int
+    public function getGenre(): ?Genre
     {
-        return $this->idGenre;
+        return $this->genre;
     }
 
     /**
-     * @param int $idGenre
+     * @param Genre|null $genre
      *
      * @return $this
      */
-    public function setIdGenre(int $idGenre): self
+    public function setGenre(?Genre $genre): self
     {
-        $this->idGenre = $idGenre;
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    /**
+     * @return Author|null
+     */
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param Author|null $author
+     *
+     * @return $this
+     */
+    public function setAuthor(?Author $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

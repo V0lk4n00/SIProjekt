@@ -9,21 +9,27 @@ use App\Entity\Author;
 
 /**
  * Class AuthorFixtures.
+ *
+ * @psalm-suppress MissingConstructor
  */
 class AuthorFixtures extends AbstractBaseFixtures
 {
     /**
      * Load data.
+     *
+     * @psalm-suppress PossiblyNullReference
+     * @psalm-suppress UnusedClosureParam
      */
     public function loadData(): void
     {
-        for ($i = 0; $i < 10; ++$i) {
+        $this->createMany(20, 'authors', function (int $i) {
             $author = new Author();
-            $author->setName($this->faker->sentence);
-            $author->setSurname($this->faker->sentence);
-            $author->setAlias($this->faker->sentence);
-            $this->manager->persist($author);
-        }
+            $author->setAlias($this->faker->unique()->word);
+            $author->setName($this->faker->unique()->word);
+            $author->setSurname($this->faker->unique()->word);
+
+            return $author;
+        });
 
         $this->manager->flush();
     }

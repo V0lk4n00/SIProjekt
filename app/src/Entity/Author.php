@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\AuthorRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Author.
@@ -13,6 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @psalm-suppress MissingConstructor
  */
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
+#[ORM\Table(name: 'author')]
+#[ORM\UniqueConstraint(name: 'uq_author_alias', columns: ['alias'])]
+#[UniqueEntity(fields: ['alias'])]
 class Author
 {
     #[ORM\Id]

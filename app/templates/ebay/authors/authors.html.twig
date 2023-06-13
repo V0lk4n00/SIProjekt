@@ -55,9 +55,9 @@
                         <thead>
                         <tr>
                             <th>{{ knp_pagination_sortable(pagination, 'ID', 'author.id') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'Alias', 'author.alias') }}</th>
                             <th>{{ knp_pagination_sortable(pagination, 'Name', 'author.name') }}</th>
                             <th>{{ knp_pagination_sortable(pagination, 'Surname', 'author.surname') }}</th>
-                            <th>{{ knp_pagination_sortable(pagination, 'Alias', 'author.alias') }}</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -65,9 +65,9 @@
                         {% for author in pagination.items %}
                             <tr>
                                 <td>{{ author.id }}</td>
+                                <td>{{ author.alias }}</td>
                                 <td>{{ author.name }}</td>
                                 <td>{{ author.surname }}</td>
-                                <td>{{ author.alias }}</td>
                                 <td>
                                     <a href="{{ url('ebay_authors_show', {id: author.id}) }}" title="View">
                                         View

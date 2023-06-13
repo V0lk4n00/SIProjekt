@@ -49,12 +49,12 @@
                 <dl class="dl-horizontal">
                     <dt>ID</dt>
                     <dd>{{ record.id }}</dd>
-                    <dt>Artist</dt>
-                    <dd>{{ record.idArtist }}</dd>
+                    <dt>Alias</dt>
+                    <dd>{{ record.author.alias }}</dd>
                     <dt>Title</dt>
                     <dd>{{ record.title }}</dd>
                     <dt>Genre</dt>
-                    <dd>{{ record.idGenre }}</dd>
+                    <dd>{{ record.genre.genreName }}</dd>
                 </dl>
                 <p>
                     <a href="{{ url('ebay_records') }}" title="Return">

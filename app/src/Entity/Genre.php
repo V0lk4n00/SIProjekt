@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\GenreRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Genre.
@@ -13,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @psalm-suppress MissingConstructor
  */
 #[ORM\Entity(repositoryClass: GenreRepository::class)]
+#[UniqueEntity(fields: ['genreName'])]
 class Genre
 {
     #[ORM\Id]
