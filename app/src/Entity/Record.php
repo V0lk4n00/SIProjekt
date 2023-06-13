@@ -26,13 +26,20 @@ class Record
     /**
      * Genre.
      *
-     * @var Genre
+     * @var Genre|null
      */
-    #[ORM\ManyToOne(targetEntity: Genre::class)]
+    #[ORM\ManyToOne(
+        targetEntity: Genre::class,
+        fetch: 'EXTRA_LAZY',
+    )]
     #[ORM\JoinColumn(nullable: false)]
     private ?Genre $genre = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(
+        targetEntity: Author::class,
+        fetch: 'EXTRA_LAZY',
+    )]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Author $author = null;
 
     /**
