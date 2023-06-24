@@ -63,4 +63,14 @@ class AuthorService implements AuthorServiceInterface
     {
         $this->authorRepository->save($author);
     }
+
+    /**
+     * @param Author $author
+     *
+     * @return void
+     */
+    public function delete(Author $author): void
+    {
+        $this->authorRepository->delete($author);
+    }
 }

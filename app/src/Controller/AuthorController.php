@@ -9,6 +9,7 @@ use App\Entity\Author;
 use App\Form\Type\AuthorType;
 use App\Interface\AuthorServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,7 +36,7 @@ class AuthorController extends AbstractController
     /**
      * Constructor.
      *
-     * @param AuthorServiceInterface $authorService Task sevrice
+     * @param AuthorServiceInterface $authorService Author service
      * @param TranslatorInterface    $translator    Translator
      */
     public function __construct(AuthorServiceInterface $authorService, TranslatorInterface $translator)
@@ -117,6 +118,84 @@ class AuthorController extends AbstractController
         return $this->render(
             'ebay/authors/create.html.twig',
             ['form' => $form->createView()]
+        );
+    }
+
+    /**
+     * Edit action.
+     *
+     * @param Request $request HTTP request
+     * @param Author  $author  Author entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/{id}/edit', name: 'author_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    public function edit(Request $request, Author $author): Response
+    {
+        $form = $this->createForm(
+            AuthorType::class,
+            $author,
+            [
+                'method' => 'PUT',
+                'action' => $this->generateUrl('author_edit', ['id' => $author->getId()]),
+            ]
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->authorService->save($author);
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('Edited successfully!')
+            );
+
+            return $this->redirectToRoute('ebay_authors');
+        }
+
+        return $this->render(
+            'ebay/authors/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'author' => $author,
+            ]
+        );
+    }
+
+    /**
+     * Delete action.
+     *
+     * @param Request $request HTTP request
+     * @param Author  $author  Author entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/{id}/delete', name: 'author_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    public function delete(Request $request, Author $author): Response
+    {
+        $form = $this->createForm(FormType::class, $author, [
+            'method' => 'DELETE',
+            'action' => $this->generateUrl('author_delete', ['id' => $author->getId()]),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->authorService->delete($author);
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('Deleted successfully!')
+            );
+
+            return $this->redirectToRoute('ebay_authors');
+        }
+
+        return $this->render(
+            'ebay/authors/delete.html.twig',
+            [
+                'form' => $form->createView(),
+                'author' => $author,
+            ]
         );
     }
 }

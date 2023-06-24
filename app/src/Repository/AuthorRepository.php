@@ -66,6 +66,17 @@ class AuthorRepository extends ServiceEntityRepository
     }
 
     /**
+     * Delete entity.
+     *
+     * @param Author $author Author entity
+     */
+    public function delete(Author $author): void
+    {
+        $this->_em->remove($author);
+        $this->_em->flush();
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param QueryBuilder|null $queryBuilder Query builder

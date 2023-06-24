@@ -63,4 +63,14 @@ class GenreService implements GenreServiceInterface
     {
         $this->genreRepository->save($genre);
     }
+
+    /**
+     * @param Genre $genre
+     *
+     * @return void
+     */
+    public function delete(Genre $genre): void
+    {
+        $this->genreRepository->delete($genre);
+    }
 }

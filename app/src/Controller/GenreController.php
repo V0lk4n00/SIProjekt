@@ -9,6 +9,7 @@ use App\Entity\Genre;
 use App\Form\Type\GenreType;
 use App\Interface\GenreServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,7 +34,7 @@ class GenreController extends AbstractController
     /**
      * Constructor.
      *
-     * @param GenreServiceInterface $genreService Task service
+     * @param GenreServiceInterface $genreService Genre service
      * @param TranslatorInterface   $translator   Translator
      */
     public function __construct(GenreServiceInterface $genreService, TranslatorInterface $translator)
@@ -115,6 +116,84 @@ class GenreController extends AbstractController
         return $this->render(
             'ebay/genres/create.html.twig',
             ['form' => $form->createView()]
+        );
+    }
+
+    /**
+     * Edit action.
+     *
+     * @param Request $request HTTP request
+     * @param Genre   $genre   Genre entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/{id}/edit', name: 'genre_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    public function edit(Request $request, Genre $genre): Response
+    {
+        $form = $this->createForm(
+            GenreType::class,
+            $genre,
+            [
+                'method' => 'PUT',
+                'action' => $this->generateUrl('genre_edit', ['id' => $genre->getId()]),
+            ]
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->genreService->save($genre);
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('Edited successfully!')
+            );
+
+            return $this->redirectToRoute('ebay_genres');
+        }
+
+        return $this->render(
+            'ebay/genres/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'genre' => $genre,
+            ]
+        );
+    }
+
+    /**
+     * Delete action.
+     *
+     * @param Request $request HTTP request
+     * @param Genre   $genre   Genre entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/{id}/delete', name: 'genre_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    public function delete(Request $request, Genre $genre): Response
+    {
+        $form = $this->createForm(FormType::class, $genre, [
+            'method' => 'DELETE',
+            'action' => $this->generateUrl('genre_delete', ['id' => $genre->getId()]),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->genreService->delete($genre);
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('Deleted successfully!')
+            );
+
+            return $this->redirectToRoute('ebay_genres');
+        }
+
+        return $this->render(
+            'ebay/genres/delete.html.twig',
+            [
+                'form' => $form->createView(),
+                'genre' => $genre,
+            ]
         );
     }
 }
