@@ -46,7 +46,11 @@ class RecordRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
-            ->select('record', 'genre', 'author')
+            ->select(
+                'partial record.{id, author, title, genre}',
+                'partial genre.{id, genreName}',
+                'partial author.{id, name, surname, alias}'
+            )
             ->join('record.genre', 'genre')
             ->join('record.author', 'author')
             ->orderBy('record.id', 'ASC');

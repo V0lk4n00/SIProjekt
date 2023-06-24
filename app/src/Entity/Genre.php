@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @psalm-suppress MissingConstructor
  */
 #[ORM\Entity(repositoryClass: GenreRepository::class)]
+#[ORM\UniqueConstraint(name: 'uq_genre_genreName', columns: ['genre_Name'])]
 #[UniqueEntity(fields: ['genreName'])]
 class Genre
 {

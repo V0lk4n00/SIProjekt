@@ -50,6 +50,7 @@ class AuthorRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select('partial author.{id, name, surname, alias}')
             ->orderBy('author.id', 'ASC');
     }
 
