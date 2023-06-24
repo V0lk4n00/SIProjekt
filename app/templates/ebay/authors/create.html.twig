@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ record.title }}
+    Create Author
 {% endblock %}
 
 {% block body %}
@@ -42,32 +42,21 @@
     </header>
 
     <body>
-    <div class="container">
-        <div class="row">
-            <h1>Details</h1>
-            {% if record is defined and record|length %}
-                <dl class="dl-horizontal">
-                    <dt>ID</dt>
-                    <dd>{{ record.id }}</dd>
-                    <dt>Alias</dt>
-                    <dd>{{ record.author.alias }}</dd>
-                    <dt>Title</dt>
-                    <dd>{{ record.title }}</dd>
-                    <dt>Genre</dt>
-                    <dd>{{ record.genre.genreName }}</dd>
-                </dl>
-                <p>
-                    <a href="{{ url('ebay_records') }}" title="Return">
+        <div class="container">
+            <div class="row">
+                <h1>Create Author</h1>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <div class="form-group row float-sm-right">
+                    <input type="submit" value="Save" class="btn btn-primary"/>
+                </div>
+                <div class="form-group row float-sm-left">
+                    <a href="{{ url('ebay_authors') }}" class="btn btn-link">
                         Return
                     </a>
-                </p>
-            {% else %}
-                <p>
-                    Record not found.
-                </p>
-            {% endif %}
+                </div>
+                {{ form_end(form) }}
+            </div>
         </div>
-    </div>
     </body>
-
 {% endblock %}

@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Entity\Genre;
 use App\Interface\GenreServiceInterface;
 use App\Repository\GenreRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -51,5 +52,15 @@ class GenreService implements GenreServiceInterface
             $page,
             GenreRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Genre $genre Genre entity
+     */
+    public function save(Genre $genre): void
+    {
+        $this->genreRepository->save($genre);
     }
 }

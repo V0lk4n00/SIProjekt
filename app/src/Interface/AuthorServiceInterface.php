@@ -4,6 +4,7 @@
  */
 namespace App\Interface;
 
+use App\Entity\Author;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
@@ -19,4 +20,11 @@ interface AuthorServiceInterface
      * @return PaginationInterface<string, mixed> Paginated list
      */
     public function getPaginatedList(int $page): PaginationInterface;
+
+    /**
+     * Save entity.
+     *
+     * @param Author $author Author entity
+     */
+    public function save(Author $author): void;
 }

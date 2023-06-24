@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Genre;
+use App\Form\Type\GenreType;
 use App\Interface\GenreServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,6 +71,36 @@ class GenreController extends AbstractController
         return $this->render(
             'ebay/genres/show.html.twig',
             ['genre' => $genre]
+        );
+    }
+
+    /**
+     * Create action.
+     *
+     * @param Request $request HTTP request
+     *
+     * @return Response HTTP response
+     */
+    #[Route(
+        '/create',
+        name: 'genre_create',
+        methods: 'GET|POST',
+    )]
+    public function create(Request $request): Response
+    {
+        $genre = new Genre();
+        $form = $this->createForm(GenreType::class, $genre);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->genreService->save($genre);
+
+            return $this->redirectToRoute('ebay_genres');
+        }
+
+        return $this->render(
+            'ebay/genres/create.html.twig',
+            ['form' => $form->createView()]
         );
     }
 }

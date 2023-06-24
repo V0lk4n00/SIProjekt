@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Entity\Author;
 use App\Interface\AuthorServiceInterface;
 use App\Repository\AuthorRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -51,5 +52,15 @@ class AuthorService implements AuthorServiceInterface
             $page,
             AuthorRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Author $author Author entity
+     */
+    public function save(Author $author): void
+    {
+        $this->authorRepository->save($author);
     }
 }

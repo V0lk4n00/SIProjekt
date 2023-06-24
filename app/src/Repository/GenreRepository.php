@@ -50,6 +50,17 @@ class GenreRepository extends ServiceEntityRepository
     }
 
     /**
+     * Save entity.
+     *
+     * @param Genre $genre Genre entity
+     */
+    public function save(Genre $genre): void
+    {
+        $this->_em->persist($genre);
+        $this->_em->flush();
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param QueryBuilder|null $queryBuilder Query builder

@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Author;
+use App\Form\Type\AuthorType;
 use App\Interface\AuthorServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,6 +72,36 @@ class AuthorController extends AbstractController
         return $this->render(
             'ebay/authors/show.html.twig',
             ['author' => $author]
+        );
+    }
+
+    /**
+     * Create action.
+     *
+     * @param Request $request HTTP request
+     *
+     * @return Response HTTP response
+     */
+    #[Route(
+        '/create',
+        name: 'author_create',
+        methods: 'GET|POST',
+    )]
+    public function create(Request $request): Response
+    {
+        $author = new Author();
+        $form = $this->createForm(AuthorType::class, $author);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->authorService->save($author);
+
+            return $this->redirectToRoute('ebay_authors');
+        }
+
+        return $this->render(
+            'ebay/authors/create.html.twig',
+            ['form' => $form->createView()]
         );
     }
 }

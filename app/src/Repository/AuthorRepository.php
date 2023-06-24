@@ -55,6 +55,17 @@ class AuthorRepository extends ServiceEntityRepository
     }
 
     /**
+     * Save entity.
+     *
+     * @param Author $author Author entity
+     */
+    public function save(Author $author): void
+    {
+        $this->_em->persist($author);
+        $this->_em->flush();
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param QueryBuilder|null $queryBuilder Query builder
