@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class GenreController.
@@ -25,12 +26,20 @@ class GenreController extends AbstractController
     private GenreServiceInterface $genreService;
 
     /**
-     * Constructor.
-     * @param GenreServiceInterface $genreService
+     * Translator.
      */
-    public function __construct(GenreServiceInterface $genreService)
+    private TranslatorInterface $translator;
+
+    /**
+     * Constructor.
+     *
+     * @param GenreServiceInterface $genreService Task service
+     * @param TranslatorInterface   $translator   Translator
+     */
+    public function __construct(GenreServiceInterface $genreService, TranslatorInterface $translator)
     {
         $this->genreService = $genreService;
+        $this->translator = $translator;
     }
 
     /**
@@ -94,6 +103,11 @@ class GenreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->genreService->save($genre);
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('Success!')
+            );
 
             return $this->redirectToRoute('ebay_genres');
         }

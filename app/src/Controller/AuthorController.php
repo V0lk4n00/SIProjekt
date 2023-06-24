@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AuthorController.
@@ -25,14 +26,23 @@ class AuthorController extends AbstractController
     private AuthorServiceInterface $authorService;
 
     /**
-     * Constructor.
-     * @param AuthorServiceInterface $authorService
+     * Translator.
+     *
+     * @var TranslatorInterface
      */
-    public function __construct(AuthorServiceInterface $authorService)
+    private TranslatorInterface $translator;
+
+    /**
+     * Constructor.
+     *
+     * @param AuthorServiceInterface $authorService Task sevrice
+     * @param TranslatorInterface    $translator    Translator
+     */
+    public function __construct(AuthorServiceInterface $authorService, TranslatorInterface $translator)
     {
         $this->authorService = $authorService;
+        $this->translator = $translator;
     }
-
 
     /**
      * Index action.
@@ -95,6 +105,11 @@ class AuthorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->authorService->save($author);
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('Success!')
+            );
 
             return $this->redirectToRoute('ebay_authors');
         }
