@@ -46,20 +46,15 @@
             <div class="row">
                 <h1>Authors</h1>
                 {% if pagination is defined and pagination.items|length %}
-
-                    <div class="navigation text-center">
-                        {{ knp_pagination_render(pagination) }}
-                    </div>
-
                     <table class="table table-striped">
                         <thead>
-                        <tr>
-                            <th>{{ knp_pagination_sortable(pagination, 'ID', 'author.id') }}</th>
-                            <th>{{ knp_pagination_sortable(pagination, 'Alias', 'author.alias') }}</th>
-                            <th>{{ knp_pagination_sortable(pagination, 'Name', 'author.name') }}</th>
-                            <th>{{ knp_pagination_sortable(pagination, 'Surname', 'author.surname') }}</th>
-                            <th>Actions</th>
-                        </tr>
+                            <tr>
+                                <th class="text-center" style="width: 5%">{{ knp_pagination_sortable(pagination, 'ID', 'author.id') }}</th>
+                                <th style="width: 35%">{{ knp_pagination_sortable(pagination, 'Alias', 'author.alias') }}</th>
+                                <th style="width: 20%">{{ knp_pagination_sortable(pagination, 'Name', 'author.name') }}</th>
+                                <th style="width: 20%">{{ knp_pagination_sortable(pagination, 'Surname', 'author.surname') }}</th>
+                                <th class="text-center" style="width: 20%">Actions</th>
+                            </tr>
                         </thead>
                         <tbody>
                         {% for author in pagination.items %}
@@ -68,25 +63,40 @@
                                 <td>{{ author.alias }}</td>
                                 <td>{{ author.name }}</td>
                                 <td>{{ author.surname }}</td>
-                                <td>
-                                    <a href="{{ url('ebay_authors_show', {id: author.id}) }}" title="View">
+                                <td class="text-center">
+                                    <a class="btn btn-outline-primary me-2" href="{{ url('ebay_authors_show', {id: author.id}) }}" title="View">
                                         View
+                                    </a>
+                                    <a class="btn btn-outline-info me-2" href="{{ url('author_edit', {id: author.id}) }}" title="Edit">
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-outline-danger" href="{{ url('author_delete', {id: author.id}) }}" title="Delete">
+                                        Delete
                                     </a>
                                 </td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-
-                    <div class="navigation text-center">
-                        {{ knp_pagination_render(pagination) }}
-                    </div>
-
                 {% else %}
-                    <p>
-                        Empty.
-                    </p>
+                    {% include 'default/_single_alert_message.html.twig' with {
+                        type: 'warning',
+                        message: 'There are no authors in the database'
+                    } %}
                 {% endif %}
+            </div>
+
+            <div class="row">
+                <h4>Don't see an author in the database?</h4>
+                <div>
+                    <a class="btn btn-outline-success mb-3" style="width: 100%" href="{{ url('author_create')}}" title="Create">
+                        Add author
+                    </a>
+                </div>
+
+                <div class="navigation text-center">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
             </div>
         </div>
     </body>

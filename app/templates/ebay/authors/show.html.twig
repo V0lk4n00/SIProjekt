@@ -55,16 +55,24 @@
                         <dd>{{ author.name }}</dd>
                         <dt>Surname</dt>
                         <dd>{{ author.surname }}</dd>
+                        <dt>Actions</dt>
+                        <dd>
+                            <a class="btn btn-outline-info me-2 mt-2" href="{{ url('genre_edit', {id: author.id}) }}" title="Edit">
+                                Edit
+                            </a>
+                            <a class="btn btn-outline-danger me-2 mt-2" href="{{ url('genre_delete', {id: author.id}) }}" title="Delete">
+                                Delete
+                            </a>
+                            <a class="btn btn-outline-dark mt-2" href="{{ url('ebay_genres')}}" title="Return">
+                                Return
+                            </a>
+                        </dd>
                     </dl>
-                    <p>
-                        <a href="{{ url('ebay_authors') }}" title="Return">
-                            Return
-                        </a>
-                    </p>
                 {% else %}
-                    <p>
-                        Record not found.
-                    </p>
+                    {% include 'default/_single_alert_message.html.twig' with {
+                        type: 'warning',
+                        message: 'Author not found'
+                    } %}
                 {% endif %}
             </div>
         </div>

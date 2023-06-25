@@ -109,7 +109,7 @@ class AuthorController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Success!')
+                $this->translator->trans('Author added successfully!')
             );
 
             return $this->redirectToRoute('ebay_authors');

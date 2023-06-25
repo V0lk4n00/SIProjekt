@@ -107,7 +107,7 @@ class GenreController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Success!')
+                $this->translator->trans('Genre added successfully!')
             );
 
             return $this->redirectToRoute('ebay_genres');

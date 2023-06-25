@@ -13,13 +13,8 @@
         {% endblock %}
     </head>
     <body>
-        {% for type, messages in app.session.flashBag.all %}
-            {% for message in messages %}
-                <div class="alert alert-{{ type }}" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
+        {% include 'default/_flash_messages.html.twig' %}
+
         {% block body %}{% endblock %}
 
         {% block javascripts %}
