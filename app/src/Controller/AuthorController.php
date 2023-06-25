@@ -28,8 +28,6 @@ class AuthorController extends AbstractController
 
     /**
      * Translator.
-     *
-     * @var TranslatorInterface
      */
     private TranslatorInterface $translator;
 
@@ -68,7 +66,7 @@ class AuthorController extends AbstractController
     /**
      * Show action.
      *
-     * @param Author $author
+     * @param  Author $author
      *
      * @return Response HTTP response
      */
@@ -173,6 +171,15 @@ class AuthorController extends AbstractController
     #[Route('/{id}/delete', name: 'author_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, Author $author): Response
     {
+        if (!$this->authorService->canBeDeleted($author)) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('Author cannot be deleted because they have a record assigned to them.')
+            );
+
+            return $this->redirectToRoute('ebay_authors');
+        }
+
         $form = $this->createForm(FormType::class, $author, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('author_delete', ['id' => $author->getId()]),

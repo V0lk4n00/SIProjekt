@@ -8,6 +8,9 @@ namespace App\Service;
 use App\Entity\Author;
 use App\Interface\AuthorServiceInterface;
 use App\Repository\AuthorRepository;
+use App\Repository\RecordRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -27,14 +30,21 @@ class AuthorService implements AuthorServiceInterface
     private PaginatorInterface $paginator;
 
     /**
+     * Record repository.
+     */
+    private RecordRepository $recordRepository;
+
+    /**
      * Constructor.
      *
      * @param AuthorRepository   $authorRepository Author repository
+     * @param RecordRepository   $recordRepository Record repository
      * @param PaginatorInterface $paginator        Paginator
      */
-    public function __construct(AuthorRepository $authorRepository, PaginatorInterface $paginator)
+    public function __construct(AuthorRepository $authorRepository, RecordRepository $recordRepository, PaginatorInterface $paginator)
     {
         $this->authorRepository = $authorRepository;
+        $this->recordRepository = $recordRepository;
         $this->paginator = $paginator;
     }
 
@@ -62,6 +72,24 @@ class AuthorService implements AuthorServiceInterface
     public function save(Author $author): void
     {
         $this->authorRepository->save($author);
+    }
+
+    /**
+     * Can Category be deleted?
+     *
+     * @param Author $author Author entity
+     *
+     * @return bool Result
+     */
+    public function canBeDeleted(Author $author): bool
+    {
+        try {
+            $result = $this->recordRepository->countByAuthor($author);
+
+            return !($result > 0);
+        } catch (NoResultException|NonUniqueResultException) {
+            return false;
+        }
     }
 
     /**

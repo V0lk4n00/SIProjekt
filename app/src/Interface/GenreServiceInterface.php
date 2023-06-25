@@ -34,4 +34,13 @@ interface GenreServiceInterface
      * @return void
      */
     public function delete(Genre $genre): void;
+
+    /**
+     * Can Genre be deleted?
+     *
+     * @param Genre $genre Genre entity
+     *
+     * @return bool Result
+     */
+    public function canBeDeleted(Genre $genre): bool;
 }

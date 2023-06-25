@@ -66,9 +66,9 @@ class GenreController extends AbstractController
     /**
      * Show action.
      *
-     * @param Genre $genre
+     * @param $genre Genre
      *
-     * @return Response HTTP response
+     * @return Response HTTP Response
      */
     #[Route(
         '/{id}',
@@ -171,6 +171,16 @@ class GenreController extends AbstractController
     #[Route('/{id}/delete', name: 'genre_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, Genre $genre): Response
     {
+        if (!$this->genreService->canBeDeleted($genre)) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('Genre cannot be deleted because it has a record assigned to it.')
+            );
+
+            return $this->redirectToRoute('ebay_genres');
+        }
+
+
         $form = $this->createForm(FormType::class, $genre, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('genre_delete', ['id' => $genre->getId()]),

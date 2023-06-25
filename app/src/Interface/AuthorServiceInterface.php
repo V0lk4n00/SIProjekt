@@ -34,4 +34,13 @@ interface AuthorServiceInterface
      * @return void
      */
     public function delete(Author $author): void;
+
+    /**
+     * Can Category be deleted?
+     *
+     * @param Author $author Author entity
+     *
+     * @return bool Result
+     */
+    public function canBeDeleted(Author $author): bool;
 }

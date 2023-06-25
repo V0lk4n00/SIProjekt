@@ -8,6 +8,9 @@ namespace App\Service;
 use App\Entity\Genre;
 use App\Interface\GenreServiceInterface;
 use App\Repository\GenreRepository;
+use App\Repository\RecordRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -25,16 +28,22 @@ class GenreService implements GenreServiceInterface
      * Paginator.
      */
     private PaginatorInterface $paginator;
+    /**
+     * Record repository.
+     */
+    private RecordRepository $recordRepository;
 
     /**
      * Constructor.
      *
-     * @param GenreRepository    $genreRepository Genre repository
-     * @param PaginatorInterface $paginator       Paginator
+     * @param GenreRepository    $genreRepository  Genre repository
+     * @param RecordRepository   $recordRepository Record repository
+     * @param PaginatorInterface $paginator        Paginator
      */
-    public function __construct(GenreRepository $genreRepository, PaginatorInterface $paginator)
+    public function __construct(GenreRepository $genreRepository, RecordRepository $recordRepository, PaginatorInterface $paginator)
     {
         $this->genreRepository = $genreRepository;
+        $this->recordRepository = $recordRepository;
         $this->paginator = $paginator;
     }
 
@@ -62,6 +71,24 @@ class GenreService implements GenreServiceInterface
     public function save(Genre $genre): void
     {
         $this->genreRepository->save($genre);
+    }
+
+    /**
+     * Can Category be deleted?
+     *
+     * @param Genre $genre Genre entity
+     *
+     * @return bool Result
+     */
+    public function canBeDeleted(Genre $genre): bool
+    {
+        try {
+            $result = $this->recordRepository->countByGenre($genre);
+
+            return !($result > 0);
+        } catch (NoResultException|NonUniqueResultException) {
+            return false;
+        }
     }
 
     /**

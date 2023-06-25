@@ -4,8 +4,12 @@
  */
 namespace App\Repository;
 
+use App\Entity\Author;
+use App\Entity\Genre;
 use App\Entity\Record;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -54,6 +58,48 @@ class RecordRepository extends ServiceEntityRepository
             ->join('record.genre', 'genre')
             ->join('record.author', 'author')
             ->orderBy('record.id', 'ASC');
+    }
+
+    /**
+     * Count records by genre.
+     *
+     * @param Genre $genre Genre
+     *
+     * @return int Number of records with genre
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countByGenre(Genre $genre): int
+    {
+        $qb = $this->getOrCreateQueryBuilder();
+
+        return $qb->select($qb->expr()->countDistinct('record.id'))
+            ->where('record.genre = :genre')
+            ->setParameter(':genre', $genre)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Count records by author.
+     *
+     * @param Author $author Author
+     *
+     * @return int Number of records with author
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countByAuthor(Author $author): int
+    {
+        $qb = $this->getOrCreateQueryBuilder();
+
+        return $qb->select($qb->expr()->countDistinct('record.id'))
+            ->where('record.author = :author')
+            ->setParameter(':author', $author)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**
