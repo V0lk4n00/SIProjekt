@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Repository\GenreRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Genre.
@@ -25,6 +26,14 @@ class Genre
 
     #[ORM\Column(length: 255)]
     private ?string $genreName = null;
+
+    /**
+     * Slug.
+     * @var string|null
+     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Gedmo\Slug(fields: ['genreName'])]
+    private ?string $slug = null;
 
     /**
      * Primary key.
@@ -52,6 +61,26 @@ class Genre
     public function setGenreName(string $genreName): self
     {
         $this->genreName = $genreName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return $this
+     */
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

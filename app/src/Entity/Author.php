@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Repository\AuthorRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Author.
@@ -32,6 +33,14 @@ class Author
 
     #[ORM\Column(length: 255)]
     private ?string $alias = null;
+
+    /**
+     * Slug.
+     * @var string|null
+     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Gedmo\Slug(fields: ['name', 'surname', 'alias'])]
+    private ?string $slug = null;
 
     /**
      * Primary key.
@@ -99,6 +108,26 @@ class Author
     public function setAlias(string $alias): self
     {
         $this->alias = $alias;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return $this
+     */
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
