@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Record;
+use App\Entity\User;
 use App\Form\Type\RecordType;
 use App\Interface\RecordServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,7 +57,8 @@ class RecordController extends AbstractController
     public function index(Request $request): Response
     {
         $pagination = $this->recordService->getPaginatedList(
-            $request->query->getInt('page', 1)
+            $request->query->getInt('page', 1),
+            $this->getUser()
         );
 
         return $this->render('ebay/records/records.html.twig', ['pagination' => $pagination]);
@@ -77,6 +79,15 @@ class RecordController extends AbstractController
     )]
     public function show(Record $record): Response
     {
+        if ($record->getRental() !== $this->getUser()) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('Record not found.')
+            );
+
+            return $this->redirectToRoute('ebay_index');
+        }
+
         return $this->render(
             'ebay/records/show.html.twig',
             ['record' => $record]
@@ -97,7 +108,10 @@ class RecordController extends AbstractController
     )]
     public function create(Request $request): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
         $record = new Record();
+        $record->setRental($user);
         $form = $this->createForm(
             RecordType::class,
             $record,
@@ -133,6 +147,14 @@ class RecordController extends AbstractController
     #[Route('/{id}/edit', name: 'record_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
     public function edit(Request $request, Record $record): Response
     {
+        if ($record->getRental() !== $this->getUser()) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('Record not found.')
+            );
+
+            return $this->redirectToRoute('ebay_index');
+        }
         $form = $this->createForm(
             RecordType::class,
             $record,
@@ -174,6 +196,14 @@ class RecordController extends AbstractController
     #[Route('/{id}/delete', name: 'record_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, Record $record): Response
     {
+        if ($record->getRental() !== $this->getUser()) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('Record not found.')
+            );
+
+            return $this->redirectToRoute('ebay_index');
+        }
         $form = $this->createForm(FormType::class, $record, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('record_delete', ['id' => $record->getId()]),

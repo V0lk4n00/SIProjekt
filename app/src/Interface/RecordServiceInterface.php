@@ -5,6 +5,7 @@
 namespace App\Interface;
 
 use App\Entity\Record;
+use App\Entity\User;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
@@ -15,11 +16,12 @@ interface RecordServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
+     * @param int  $page   Page number
+     * @param User $rental Rental
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page): PaginationInterface;
+    public function getPaginatedList(int $page, User $rental): PaginationInterface;
 
     /**
      * Save entity.

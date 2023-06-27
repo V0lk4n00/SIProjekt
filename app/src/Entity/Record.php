@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\RecordRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Record.
@@ -41,6 +42,17 @@ class Record
     )]
     #[ORM\JoinColumn(nullable: false)]
     private ?Author $author = null;
+
+    /**
+     * Rental.
+     *
+     * @var User|null
+     */
+    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Type(User::class)]
+    private ?User $rental;
 
     /**
      * Primary key.
@@ -108,6 +120,26 @@ class Record
     public function setAuthor(?Author $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getRental(): ?User
+    {
+        return $this->rental;
+    }
+
+    /**
+     * @param User|null $rental
+     *
+     * @return $this
+     */
+    public function setRental(?User $rental): self
+    {
+        $this->rental = $rental;
 
         return $this;
     }

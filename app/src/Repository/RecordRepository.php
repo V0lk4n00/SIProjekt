@@ -7,6 +7,7 @@ namespace App\Repository;
 use App\Entity\Author;
 use App\Entity\Genre;
 use App\Entity\Record;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -122,6 +123,23 @@ class RecordRepository extends ServiceEntityRepository
     {
         $this->_em->remove($record);
         $this->_em->flush();
+    }
+
+    /**
+     * Query records by rental.
+     *
+     * @param User $user User entity
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function queryByRental(User $user): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        $queryBuilder->andWhere('record.rental = :rental')
+            ->setParameter('rental', $user);
+
+        return $queryBuilder;
     }
 
     /**

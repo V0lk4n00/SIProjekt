@@ -5,11 +5,14 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Author;
+use App\Entity\Genre;
 use App\Entity\Record;
+use App\Entity\User;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
- * Class TaskFixtures.
+ * Class RecordFixtures.
  */
 class RecordFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
@@ -31,10 +34,15 @@ class RecordFixtures extends AbstractBaseFixtures implements DependentFixtureInt
             $record->setTitle($this->faker->sentence);
             /** @var Record $genre */
             $genre = $this->getRandomReference('genres');
+            /* @var Genre $genre */
             $record->setGenre($genre);
             /** @var Record $author */
             $author = $this->getRandomReference('authors');
+            /* @var Author $author */
             $record->setAuthor($author);
+            /** @var User $rental */
+            $rental = $this->getRandomReference('admins');
+            $record->setRental($rental);
 
             return $record;
         });
@@ -48,11 +56,10 @@ class RecordFixtures extends AbstractBaseFixtures implements DependentFixtureInt
      *
      * @return string[] of dependencies
      *
-     * @psalm-return array{0: GenreFixtures::class}
-     * @psalm-return array{0: AuthorFixtures::class}
+     * @psalm-return array{0: GenreFixtures::class, 1: AuthorFixtures, 2:UserFixtures}
      */
     public function getDependencies(): array
     {
-        return [GenreFixtures::class, AuthorFixtures::class];
+        return [GenreFixtures::class, AuthorFixtures::class, UserFixtures::class];
     }
 }
