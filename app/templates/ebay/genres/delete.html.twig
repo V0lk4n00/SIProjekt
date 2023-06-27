@@ -47,10 +47,9 @@
                 {% include 'default/_form.html.twig' with {
                     page_title: 'Delete Genre'|trans({'%id%': genre.id|default('')}),
                     form: form,
-                    submit_label: 'Delete',
+                    submit_label: 'Delete'|trans,
                     back_to_list_path: 'ebay_genres',
                 } %}
-
             </div>
         </div>
     </body>

@@ -42,53 +42,62 @@
     </header>
 
     <body>
-    <div class="container">
-        <div class="row">
-            <h1>Records</h1>
-            {% if pagination is defined and pagination.items|length %}
+        <div class="container">
+            <div class="row">
+                <h1>Records</h1>
+                {% if pagination is defined and pagination.items|length %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 5%">{{ knp_pagination_sortable(pagination, 'ID', 'record.id') }}</th>
+                                <th style="width: 35%">{{ knp_pagination_sortable(pagination, 'Alias', 'record.author') }}</th>
+                                <th style="width: 20%;">{{ knp_pagination_sortable(pagination, 'Title', 'record.title') }}</th>
+                                <th style="width: 20%">{{ knp_pagination_sortable(pagination, 'Genre', 'record.genre') }}</th>
+                                <th class="text-center" style="width: 20%;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for record in pagination.items %}
+                            <tr>
+                                <td>{{ record.id }}</td>
+                                <td>{{ record.author.alias }}</td>
+                                <td>{{ record.title }}</td>
+                                <td>{{ record.genre.genreName }}</td>
+                                <td class="text-center">
+                                    <a class="btn btn-outline-primary me-2" href="{{ url('ebay_records_show', {id: record.id}) }}" title="View">
+                                        View
+                                    </a>
+                                    <a class="btn btn-outline-info me-2" href="{{ url('record_edit', {id: record.id}) }}" title="Edit">
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-outline-danger" href="{{ url('record_delete', {id: record.id}) }}" title="Delete">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    {% include 'default/_single_alert_message.html.twig' with {
+                        type: 'warning',
+                        message: 'There are no records in the database'
+                    } %}
+                {% endif %}
+            </div>
+            <div class="row">
+                <h4>Don't see a record in the database?</h4>
+                <div>
+                    <a class="btn btn-outline-success mb-3" style="width: 100%" href="{{ url('record_create')}}" title="Create">
+                        Add record
+                    </a>
+                </div>
 
                 <div class="navigation text-center">
                     {{ knp_pagination_render(pagination) }}
                 </div>
-
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>{{ knp_pagination_sortable(pagination, 'ID', 'record.id') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Alias', 'record.author') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Title', 'record.title') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Genre', 'record.genre') }}</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for record in pagination.items %}
-                        <tr>
-                            <td>{{ record.id }}</td>
-                            <td>{{ record.author.alias }}</td>
-                            <td>{{ record.title }}</td>
-                            <td>{{ record.genre.genreName }}</td>
-                            <td>
-                                <a href="{{ url('ebay_records_show', {id: record.id}) }}" title="View">
-                                    View
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-
-                <div class="navigation text-center">
-                    {{ knp_pagination_render(pagination) }}
-                </div>
-
-            {% else %}
-                <p>
-                    Empty.
-                </p>
-            {% endif %}
+            </div>
         </div>
-    </div>
     </body>
 
 {% endblock %}

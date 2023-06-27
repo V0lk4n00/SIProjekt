@@ -45,7 +45,7 @@
         <div class="container">
             <div class="row">
                 {% include 'default/_form.html.twig' with {
-                    page_title: 'Delete Author'|trans({'%id%': category.id|default('')}),
+                    page_title: 'Delete Author'|trans({'%id%': author.id|default('')}),
                     form: form,
                     submit_label: 'Delete'|trans,
                     back_to_list_path: 'ebay_authors',

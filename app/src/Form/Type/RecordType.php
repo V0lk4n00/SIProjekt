@@ -1,20 +1,24 @@
 <?php
+
 /**
- * Author type.
+ * Record type.
  */
 
 namespace App\Form\Type;
 
 use App\Entity\Author;
+use App\Entity\Genre;
+use App\Entity\Record;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AuthorType.
+ * RecordType class.
  */
-class AuthorType extends AbstractType
+class RecordType extends AbstractType
 {
     /**
      * Builds the form.
@@ -31,30 +35,39 @@ class AuthorType extends AbstractType
     {
         $builder
             ->add(
-                'name',
+                'title',
                 TextType::class,
                 [
-                    'label' => 'Name:',
-                    'required' => false,
-                    'attr' => ['max_length' => 64],
-                ]
-            )
-            ->add(
-                'surname',
-                TextType::class,
-                [
-                    'label' => 'Surname:',
-                    'required' => false,
-                    'attr' => ['max_length' => 64],
-                ]
-            )
-            ->add(
-                'alias',
-                TextType::class,
-                [
-                    'label' => 'Alias:',
+                    'label' => 'Title:',
                     'required' => true,
                     'attr' => ['max_length' => 64],
+                ]
+            );
+        $builder
+            ->add(
+                'genre',
+                EntityType::class,
+                [
+                    'class' => Genre::class,
+                    'choice_label' => function ($genre): string {
+                        return $genre->getGenreName();
+                    },
+                    'label' => 'Genre',
+                    'placeholder' => 'Genre',
+                    'required' => true,
+                ]
+            )
+            ->add(
+                'author',
+                EntityType::class,
+                [
+                    'class' => Author::class,
+                    'choice_label' => function ($author): string {
+                        return $author->getAlias();
+                    },
+                    'label' => 'Author',
+                    'placeholder' => 'Author',
+                    'required' => true,
                 ]
             );
     }
@@ -66,7 +79,7 @@ class AuthorType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Author::class]);
+        $resolver->setDefaults(['data_class' => Record::class]);
     }
 
     /**
@@ -79,6 +92,6 @@ class AuthorType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'author';
+        return 'record';
     }
 }

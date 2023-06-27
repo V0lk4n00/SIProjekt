@@ -180,7 +180,6 @@ class GenreController extends AbstractController
             return $this->redirectToRoute('ebay_genres');
         }
 
-
         $form = $this->createForm(FormType::class, $genre, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('genre_delete', ['id' => $genre->getId()]),

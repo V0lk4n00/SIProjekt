@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Entity\Record;
 use App\Interface\RecordServiceInterface;
 use App\Repository\RecordRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -51,5 +52,25 @@ class RecordService implements RecordServiceInterface
             $page,
             RecordRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Record $record Record entity
+     */
+    public function save(Record $record): void
+    {
+        $this->recordRepository->save($record);
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Record $record Record entity
+     */
+    public function delete(Record $record): void
+    {
+        $this->recordRepository->delete($record);
     }
 }

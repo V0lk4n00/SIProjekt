@@ -103,6 +103,28 @@ class RecordRepository extends ServiceEntityRepository
     }
 
     /**
+     * Save entity.
+     *
+     * @param Record $record Record entity
+     */
+    public function save(Record $record): void
+    {
+        $this->_em->persist($record);
+        $this->_em->flush();
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Record $record Record entity
+     */
+    public function delete(Record $record): void
+    {
+        $this->_em->remove($record);
+        $this->_em->flush();
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param QueryBuilder|null $queryBuilder Query builder

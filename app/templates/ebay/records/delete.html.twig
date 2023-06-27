@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Edit author
+    Delete Author
 {% endblock %}
 
 {% block body %}
@@ -45,10 +45,10 @@
         <div class="container">
             <div class="row">
                 {% include 'default/_form.html.twig' with {
-                    page_title: 'Edit Author'|trans({'%id%': author.id|default('')}),
+                    page_title: 'Delete Record'|trans({'%id%': record.id|default('')}),
                     form: form,
-                    submit_label: 'Edit',
-                    back_to_list_path: 'ebay_authors',
+                    submit_label: 'Delete',
+                    back_to_list_path: 'ebay_records',
                 } %}
             </div>
         </div>

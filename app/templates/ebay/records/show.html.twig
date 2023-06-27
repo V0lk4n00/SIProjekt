@@ -42,32 +42,40 @@
     </header>
 
     <body>
-    <div class="container">
-        <div class="row">
-            <h1>Details</h1>
-            {% if record is defined and record|length %}
-                <dl class="dl-horizontal">
-                    <dt>ID</dt>
-                    <dd>{{ record.id }}</dd>
-                    <dt>Alias</dt>
-                    <dd>{{ record.author.alias }}</dd>
-                    <dt>Title</dt>
-                    <dd>{{ record.title }}</dd>
-                    <dt>Genre</dt>
-                    <dd>{{ record.genre.genreName }}</dd>
-                </dl>
-                <p>
-                    <a href="{{ url('ebay_records') }}" title="Return">
-                        Return
-                    </a>
-                </p>
-            {% else %}
-                <p>
-                    Record not found.
-                </p>
-            {% endif %}
+        <div class="container">
+            <div class="row">
+                <h1>Details</h1>
+                {% if record is defined and record|length %}
+                    <dl class="dl-horizontal">
+                        <dt>ID</dt>
+                        <dd>{{ record.id }}</dd>
+                        <dt>Alias</dt>
+                        <dd>{{ record.author.alias }}</dd>
+                        <dt>Title</dt>
+                        <dd>{{ record.title }}</dd>
+                        <dt>Genre</dt>
+                        <dd>{{ record.genre.genreName }}</dd>
+                        <dt>Actions</dt>
+                        <dd>
+                            <a class="btn btn-outline-info me-2 mt-2" href="{{ url('record_edit', {id: record.id}) }}" title="Edit">
+                                Edit
+                            </a>
+                            <a class="btn btn-outline-danger me-2 mt-2" href="{{ url('record_delete', {id: record.id}) }}" title="Delete">
+                                Delete
+                            </a>
+                            <a class="btn btn-outline-dark mt-2" href="{{ url('ebay_records')}}" title="Return">
+                                Return
+                            </a>
+                        </dd>
+                    </dl>
+                {% else %}
+                    {% include 'default/_single_alert_message.html.twig' with {
+                        type: 'warning',
+                        message: 'Record not found'
+                    } %}
+                {% endif %}
+            </div>
         </div>
-    </div>
     </body>
 
 {% endblock %}

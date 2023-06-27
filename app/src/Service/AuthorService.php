@@ -91,7 +91,6 @@ class AuthorService implements AuthorServiceInterface
             return false;
         }
     }
-
     /**
      * @param Author $author
      *
