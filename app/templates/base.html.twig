@@ -20,12 +20,9 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarsExample04">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ path('ebay_index') }}">Homepage</a>
-                        </li>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="nav-item">
                             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Users</a>
                         </li>
@@ -37,6 +34,7 @@
                                 <li><a class="dropdown-item" href="{{ path('ebay_authors') }}">Authors</a></li>
                             </ul>
                         </li>
+                        {% endif %}
                     </ul>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <div class="m-2">{{ app.user.email }}</div>

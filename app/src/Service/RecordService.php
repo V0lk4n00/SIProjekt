@@ -43,14 +43,13 @@ class RecordService implements RecordServiceInterface
      * Get paginated list.
      *
      * @param int  $page   Page number
-     * @param User $rental Rental
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page, User $rental): PaginationInterface
+    public function getPaginatedList(int $page): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->recordRepository->queryByRental($rental),
+            $this->recordRepository->queryAll(),
             $page,
             RecordRepository::PAGINATOR_ITEMS_PER_PAGE
         );

@@ -9,6 +9,7 @@ use App\Entity\Record;
 use App\Entity\User;
 use App\Form\Type\RecordType;
 use App\Interface\RecordServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,8 +58,7 @@ class RecordController extends AbstractController
     public function index(Request $request): Response
     {
         $pagination = $this->recordService->getPaginatedList(
-            $request->query->getInt('page', 1),
-            $this->getUser()
+            $request->query->getInt('page', 1)
         );
 
         return $this->render('ebay/records/records.html.twig', ['pagination' => $pagination]);
@@ -77,6 +77,7 @@ class RecordController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET',
     )]
+    #[IsGranted('VIEW', subject: 'record')]
     public function show(Record $record): Response
     {
         if ($record->getRental() !== $this->getUser()) {
@@ -145,6 +146,7 @@ class RecordController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{id}/edit', name: 'record_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    #[IsGranted('EDIT', subject: 'record')]
     public function edit(Request $request, Record $record): Response
     {
         if ($record->getRental() !== $this->getUser()) {
@@ -194,6 +196,7 @@ class RecordController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{id}/delete', name: 'record_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    #[IsGranted('DELETE', subject: 'record')]
     public function delete(Request $request, Record $record): Response
     {
         if ($record->getRental() !== $this->getUser()) {

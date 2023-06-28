@@ -126,23 +126,6 @@ class RecordRepository extends ServiceEntityRepository
     }
 
     /**
-     * Query records by rental.
-     *
-     * @param User $user User entity
-     *
-     * @return QueryBuilder Query builder
-     */
-    public function queryByRental(User $user): QueryBuilder
-    {
-        $queryBuilder = $this->queryAll();
-
-        $queryBuilder->andWhere('record.rental = :rental')
-            ->setParameter('rental', $user);
-
-        return $queryBuilder;
-    }
-
-    /**
      * Get or create new query builder.
      *
      * @param QueryBuilder|null $queryBuilder Query builder

@@ -28,14 +28,23 @@
                                 <td>{{ record.title }}</td>
                                 <td>{{ record.genre.genreName }}</td>
                                 <td class="text-center">
+                                    {% if is_granted('VIEW', record) %}
                                     <a class="btn btn-outline-primary me-2" href="{{ url('ebay_records_show', {id: record.id}) }}" title="View">
                                         View
                                     </a>
+                                    {% endif %}
+                                    {% if is_granted('EDIT', record) %}
                                     <a class="btn btn-outline-info me-2" href="{{ url('record_edit', {id: record.id}) }}" title="Edit">
                                         Edit
                                     </a>
+                                    {% endif %}
+                                    {% if is_granted('DELETE', record) %}
                                     <a class="btn btn-outline-danger" href="{{ url('record_delete', {id: record.id}) }}" title="Delete">
                                         Delete
+                                    </a>
+                                    {% endif %}
+                                    <a class="btn btn-outline-success me-2" href="#" title="Rent">
+                                        Rent
                                     </a>
                                 </td>
                             </tr>
@@ -50,13 +59,14 @@
                 {% endif %}
             </div>
             <div class="row">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <h4>Don't see a record in the database?</h4>
                 <div>
                     <a class="btn btn-outline-success mb-3" style="width: 100%" href="{{ url('record_create')}}" title="Create">
                         Add record
                     </a>
                 </div>
-
+                {% endif %}
                 <div class="navigation text-center">
                     {{ knp_pagination_render(pagination) }}
                 </div>
