@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Edit User
+{% endblock %}
+
+{% block body %}
+    <body>
+    <div class="container">
+        <div class="row">
+            {% include 'default/_form.html.twig' with {
+                page_title: 'Edit User'|trans({'%id%': user.id|default('')}),
+                form: form,
+                submit_label: 'Edit',
+                back_to_list_path: 'ebay_users',
+            } %}
+        </div>
+    </div>
+    </body>
+{% endblock %}
