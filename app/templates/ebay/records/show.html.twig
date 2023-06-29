@@ -19,6 +19,8 @@
                         <dd>{{ record.title }}</dd>
                         <dt>Genre</dt>
                         <dd>{{ record.genre.genreName }}</dd>
+                        <dt>Items in stock</dt>
+                        <dd>{{ record.inStock }}</dd>
                         <dt>Actions</dt>
                         <dd>
                             <a class="btn btn-outline-info me-2 mt-2" href="{{ url('record_edit', {id: record.id}) }}" title="Edit">

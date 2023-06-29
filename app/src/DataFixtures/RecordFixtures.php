@@ -43,6 +43,7 @@ class RecordFixtures extends AbstractBaseFixtures implements DependentFixtureInt
             /** @var User $rental */
             $rental = $this->getRandomReference('admins');
             $record->setRental($rental);
+            $record->setInStock(1);
 
             return $record;
         });

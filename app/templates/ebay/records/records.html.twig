@@ -14,11 +14,12 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 5%">{{ knp_pagination_sortable(pagination, 'ID', 'record.id') }}</th>
-                                <th style="width: 15%">{{ knp_pagination_sortable(pagination, 'Alias', 'author.alias') }}</th>
+                                <th style="width: 10%">{{ knp_pagination_sortable(pagination, 'Alias', 'author.alias') }}</th>
                                 <th class="text-center" style="width: 10%;">Sort by Alias</th>
-                                <th style="width: 30%;">{{ knp_pagination_sortable(pagination, 'Title', 'record.title') }}</th>
+                                <th style="width: 25%;">{{ knp_pagination_sortable(pagination, 'Title', 'record.title') }}</th>
                                 <th style="width: 15%">{{ knp_pagination_sortable(pagination, 'Genre', 'genre.genreName') }}</th>
                                 <th class="text-center" style="width: 10%;">Sort by Genre</th>
+                                <th class="text-center" style="width: 10%;">Items in stock</th>
                                 <th class="text-center" style="width: 15%;">Actions</th>
                             </tr>
                         </thead>
@@ -39,6 +40,7 @@
                                         {{ record.genre.genreName }}
                                     </a>
                                 </td>
+                                <td class="text-center">{{ record.inStock }}</td>
                                 <td class="text-center">
                                     {% if is_granted('VIEW', record) %}
                                     <a class="btn btn-outline-primary m-1" href="{{ url('ebay_records_show', {id: record.id}) }}" title="View">

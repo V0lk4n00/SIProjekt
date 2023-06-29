@@ -54,6 +54,10 @@ class Record
     #[Assert\Type(User::class)]
     private ?User $rental;
 
+    #[ORM\Column]
+    #[Assert\GreaterThanOrEqual(0)]
+    private ?int $inStock = null;
+
     /**
      * Primary key.
      *
@@ -140,6 +144,18 @@ class Record
     public function setRental(?User $rental): self
     {
         $this->rental = $rental;
+
+        return $this;
+    }
+
+    public function getInStock(): ?int
+    {
+        return $this->inStock;
+    }
+
+    public function setInStock(int $inStock): self
+    {
+        $this->inStock = $inStock;
 
         return $this;
     }

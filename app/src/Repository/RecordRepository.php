@@ -53,7 +53,7 @@ class RecordRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->getOrCreateQueryBuilder()
             ->select(
-                'partial record.{id, author, title, genre}',
+                'partial record.{id, author, title, genre, inStock}',
                 'partial genre.{id, genreName}',
                 'partial author.{id, name, surname, alias}'
             )
