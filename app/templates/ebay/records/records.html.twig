@@ -14,10 +14,12 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 5%">{{ knp_pagination_sortable(pagination, 'ID', 'record.id') }}</th>
-                                <th style="width: 35%">{{ knp_pagination_sortable(pagination, 'Alias', 'record.author') }}</th>
-                                <th style="width: 20%;">{{ knp_pagination_sortable(pagination, 'Title', 'record.title') }}</th>
-                                <th style="width: 20%">{{ knp_pagination_sortable(pagination, 'Genre', 'record.genre') }}</th>
-                                <th class="text-center" style="width: 20%;">Actions</th>
+                                <th style="width: 15%">{{ knp_pagination_sortable(pagination, 'Alias', 'author.alias') }}</th>
+                                <th class="text-center" style="width: 10%;">Sort by Alias</th>
+                                <th style="width: 30%;">{{ knp_pagination_sortable(pagination, 'Title', 'record.title') }}</th>
+                                <th style="width: 15%">{{ knp_pagination_sortable(pagination, 'Genre', 'genre.genreName') }}</th>
+                                <th class="text-center" style="width: 10%;">Sort by Genre</th>
+                                <th class="text-center" style="width: 15%;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,25 +27,35 @@
                             <tr>
                                 <td>{{ record.id }}</td>
                                 <td>{{ record.author.alias }}</td>
+                                <td>
+                                    <a href="{{ url('ebay_records', {'filters.author_id' : record.author.id}) }}" title="{{ record.author.alias }}">
+                                        {{ record.author.alias }}
+                                    </a>
+                                </td>
                                 <td>{{ record.title }}</td>
                                 <td>{{ record.genre.genreName }}</td>
+                                <td>
+                                    <a href="{{ url('ebay_records', {'filters.genre_id' : record.genre.id}) }}" title="{{ record.genre.genreName }}">
+                                        {{ record.genre.genreName }}
+                                    </a>
+                                </td>
                                 <td class="text-center">
                                     {% if is_granted('VIEW', record) %}
-                                    <a class="btn btn-outline-primary me-2" href="{{ url('ebay_records_show', {id: record.id}) }}" title="View">
+                                    <a class="btn btn-outline-primary m-1" href="{{ url('ebay_records_show', {id: record.id}) }}" title="View">
                                         View
                                     </a>
                                     {% endif %}
                                     {% if is_granted('EDIT', record) %}
-                                    <a class="btn btn-outline-info me-2" href="{{ url('record_edit', {id: record.id}) }}" title="Edit">
+                                    <a class="btn btn-outline-info m-1" href="{{ url('record_edit', {id: record.id}) }}" title="Edit">
                                         Edit
                                     </a>
                                     {% endif %}
                                     {% if is_granted('DELETE', record) %}
-                                    <a class="btn btn-outline-danger" href="{{ url('record_delete', {id: record.id}) }}" title="Delete">
+                                    <a class="btn btn-outline-danger m-1" href="{{ url('record_delete', {id: record.id}) }}" title="Delete">
                                         Delete
                                     </a>
                                     {% endif %}
-                                    <a class="btn btn-outline-success me-2" href="{{ url('reservation_create') }}" title="Rent">
+                                    <a class="btn btn-outline-success m-1" href="{{ url('reservation_create') }}" title="Rent">
                                         Rent
                                     </a>
                                 </td>

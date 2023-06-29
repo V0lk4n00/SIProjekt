@@ -92,12 +92,26 @@ class AuthorService implements AuthorServiceInterface
         }
     }
     /**
-     * @param Author $author
+     * @param Author $author Author
      *
      * @return void
      */
     public function delete(Author $author): void
     {
         $this->authorRepository->delete($author);
+    }
+
+    /**
+     * Find by id.
+     *
+     * @param int $id Category id
+     *
+     * @return Author|null Category entity
+     *
+     * @throws NonUniqueResultException
+     */
+    public function findOneById(int $id): ?Author
+    {
+        return $this->authorRepository->findOneById($id);
     }
 }

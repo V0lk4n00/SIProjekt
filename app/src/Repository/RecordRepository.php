@@ -7,7 +7,6 @@ namespace App\Repository;
 use App\Entity\Author;
 use App\Entity\Genre;
 use App\Entity\Record;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -46,11 +45,13 @@ class RecordRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
+     * @param array $filters
+     *
      * @return QueryBuilder Query builder
      */
-    public function queryAll(): QueryBuilder
+    public function queryAll(array $filters): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()
+        $queryBuilder = $this->getOrCreateQueryBuilder()
             ->select(
                 'partial record.{id, author, title, genre}',
                 'partial genre.{id, genreName}',
@@ -59,6 +60,8 @@ class RecordRepository extends ServiceEntityRepository
             ->join('record.genre', 'genre')
             ->join('record.author', 'author')
             ->orderBy('record.id', 'ASC');
+
+        return $this->applyFiltersToList($queryBuilder, $filters);
     }
 
     /**
@@ -135,5 +138,28 @@ class RecordRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('record');
+    }
+
+    /**
+     * Apply filters to paginated list.
+     *
+     * @param QueryBuilder          $queryBuilder Query builder
+     * @param array<string, object> $filters      Filters array
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['genre']) && $filters['genre'] instanceof Genre) {
+            $queryBuilder->andWhere('genre = :genre')
+                ->setParameter('genre', $filters['genre']);
+        }
+
+        if (isset($filters['author']) && $filters['author'] instanceof Author) {
+            $queryBuilder->andWhere('author IN (:author)')
+                ->setParameter('author', $filters['author']);
+        }
+
+        return $queryBuilder;
     }
 }

@@ -100,4 +100,18 @@ class GenreService implements GenreServiceInterface
     {
         $this->genreRepository->delete($genre);
     }
+
+    /**
+     * Find by id.
+     *
+     * @param int $id Category id
+     *
+     * @return Genre|null Category entity
+     *
+     * @throws NonUniqueResultException
+     */
+    public function findOneById(int $id): ?Genre
+    {
+        return $this->genreRepository->findOneById($id);
+    }
 }
