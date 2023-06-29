@@ -107,7 +107,7 @@ class GenreController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Genre added successfully!')
+                $this->translator->trans('message.added_success')
             );
 
             return $this->redirectToRoute('ebay_genres');
@@ -145,7 +145,7 @@ class GenreController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Edited successfully!')
+                $this->translator->trans('message.edit_success')
             );
 
             return $this->redirectToRoute('ebay_genres');
@@ -174,7 +174,7 @@ class GenreController extends AbstractController
         if (!$this->genreService->canBeDeleted($genre)) {
             $this->addFlash(
                 'warning',
-                $this->translator->trans('Genre cannot be deleted because it has a record assigned to it.')
+                $this->translator->trans('message.delete_error')
             );
 
             return $this->redirectToRoute('ebay_genres');
@@ -191,7 +191,7 @@ class GenreController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Deleted successfully!')
+                $this->translator->trans('message.delete_success')
             );
 
             return $this->redirectToRoute('ebay_genres');

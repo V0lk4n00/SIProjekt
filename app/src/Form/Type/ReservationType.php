@@ -34,7 +34,7 @@ class ReservationType extends AbstractType
                 'email',
                 TextType::class,
                 [
-                    'label' => 'Email:',
+                    'label' => 'label.email',
                     'required' => true,
                     'attr' => ['max_length' => 64],
                 ]
@@ -43,7 +43,7 @@ class ReservationType extends AbstractType
                 'nick',
                 TextType::class,
                 [
-                    'label' => 'Nick:',
+                    'label' => 'label.nick',
                     'required' => true,
                     'attr' => ['max_length' => 64],
                 ]
@@ -52,7 +52,7 @@ class ReservationType extends AbstractType
                 'content',
                 TextType::class,
                 [
-                    'label' => 'Item you want to rent:',
+                    'label' => 'label.content',
                     'required' => true,
                     'attr' => ['max_length' => 255],
                 ]

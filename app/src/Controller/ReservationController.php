@@ -107,7 +107,7 @@ class ReservationController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Reservation added successfully!')
+                $this->translator->trans('message.added_success')
             );
 
             return $this->redirectToRoute('ebay_index');
@@ -141,10 +141,10 @@ class ReservationController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Deleted successfully!')
+                $this->translator->trans('message.delete_success')
             );
 
-            return $this->redirectToRoute('ebay_records');
+            return $this->redirectToRoute('ebay_reservations');
         }
 
         return $this->render(

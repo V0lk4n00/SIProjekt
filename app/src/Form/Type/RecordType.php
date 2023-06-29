@@ -39,7 +39,7 @@ class RecordType extends AbstractType
                 'title',
                 TextType::class,
                 [
-                    'label' => 'Title:',
+                    'label' => 'label.title',
                     'required' => true,
                     'attr' => ['max_length' => 64],
                 ]
@@ -53,8 +53,8 @@ class RecordType extends AbstractType
                     'choice_label' => function ($genre): string {
                         return $genre->getGenreName();
                     },
-                    'label' => 'Genre',
-                    'placeholder' => 'Genre',
+                    'label' => 'label.genre_name',
+                    'placeholder' => 'label.genre_name',
                     'required' => true,
                 ]
             )
@@ -66,8 +66,8 @@ class RecordType extends AbstractType
                     'choice_label' => function ($author): string {
                         return $author->getAlias();
                     },
-                    'label' => 'Author',
-                    'placeholder' => 'Author',
+                    'label' => 'label.alias',
+                    'placeholder' => 'label.alias',
                     'required' => true,
                 ]
             )
@@ -75,7 +75,7 @@ class RecordType extends AbstractType
                 'inStock',
                 IntegerType::class,
                 [
-                    'label' => 'How many in stock?',
+                    'label' => 'label.stock',
                     'required' => true,
                 ]
             );

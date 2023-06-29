@@ -40,8 +40,6 @@ class RecordVoter extends Voter
 
     /**
      * Security helper.
-     *
-     * @var Security
      */
     private Security $security;
 
@@ -92,10 +90,13 @@ class RecordVoter extends Voter
 
         switch ($attribute) {
             case self::EDIT:
+                /* @var $user User */
                 return $this->canEdit($subject, $user);
             case self::VIEW:
+                /* @var $user User */
                 return $this->canView($subject, $user);
             case self::DELETE:
+                /* @var $user User */
                 return $this->canDelete($subject, $user);
         }
 

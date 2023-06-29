@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Delete genre
+    {{ 'title.object_delete'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -9,9 +9,9 @@
         <div class="container">
             <div class="row">
                 {% include 'default/_form.html.twig' with {
-                    page_title: 'Delete Genre'|trans({'%id%': genre.id|default('')}),
+                    page_title: 'title.object_delete'|trans({'%id%': genre.id|default('')}),
                     form: form,
-                    submit_label: 'Delete'|trans,
+                    submit_label: 'action.delete'|trans,
                     back_to_list_path: 'ebay_genres',
                 } %}
             </div>

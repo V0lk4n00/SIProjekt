@@ -148,11 +148,19 @@ class Record
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getInStock(): ?int
     {
         return $this->inStock;
     }
 
+    /**
+     * @param int $inStock
+     *
+     * @return $this
+     */
     public function setInStock(int $inStock): self
     {
         $this->inStock = $inStock;

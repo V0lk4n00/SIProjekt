@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Create Author
+    {{ 'title.object_create'|trans }}
 {% endblock %}
 
 {% block body %}
     <body>
-    <div class="container">
-        <div class="row">
-            {% include 'default/_form.html.twig' with {
-                page_title: 'Add Record',
-                form: form,
-                submit_label: 'Save',
-                back_to_list_path: 'ebay_records',
-            } %}
+        <div class="container">
+            <div class="row">
+                {% include 'default/_form.html.twig' with {
+                    page_title: 'title.object_create'|trans,
+                    form: form,
+                    submit_label: 'action.save'|trans,
+                    back_to_list_path: 'ebay_records',
+                } %}
+            </div>
         </div>
-    </div>
     </body>
 {% endblock %}

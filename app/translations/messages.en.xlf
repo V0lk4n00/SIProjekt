@@ -2,13 +2,57 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="file.ext">
     <body>
+      <trans-unit id="action.back_to_list">
+        <source>action.back_to_list</source>
+        <target>Return</target>
+      </trans-unit>
+      <trans-unit id="action.alter">
+        <source>action.alter</source>
+        <target>Alter</target>
+      </trans-unit>
+      <trans-unit id="action.accept">
+        <source>action.accept</source>
+        <target>Accept</target>
+      </trans-unit>
+      <trans-unit id="action.decline">
+        <source>action.decline</source>
+        <target>Decline</target>
+      </trans-unit>
+      <trans-unit id="action.view">
+        <source>action.view</source>
+        <target>View</target>
+      </trans-unit>
+      <trans-unit id="action.edit">
+        <source>action.edit</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="action.delete">
+        <source>action.delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="action.create">
+        <source>action.create</source>
+        <target>Create</target>
+      </trans-unit>
+      <trans-unit id="action.rent">
+        <source>action.rent</source>
+        <target>Rent</target>
+      </trans-unit>
+      <trans-unit id="action.return">
+        <source>action.return</source>
+        <target>Return</target>
+      </trans-unit>
+      <trans-unit id="action.save">
+        <source>action.save</source>
+        <target>Save</target>
+      </trans-unit>
       <trans-unit id="label.actions">
         <source>label.actions</source>
         <target>Actions</target>
       </trans-unit>
       <trans-unit id="label.id">
         <source>label.id</source>
-        <target>Id</target>
+        <target>ID</target>
       </trans-unit>
       <trans-unit id="label.title">
         <source>label.title</source>
@@ -18,9 +62,45 @@
         <source>label.content</source>
         <target>Content</target>
       </trans-unit>
-      <trans-unit id="label.tags">
-        <source>label.tags</source>
-        <target>Tags</target>
+      <trans-unit id="label.name">
+        <source>label.name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="label.surname">
+        <source>label.surname</source>
+        <target>Surname</target>
+      </trans-unit>
+      <trans-unit id="label.alias">
+        <source>label.alias</source>
+        <target>Alias</target>
+      </trans-unit>
+      <trans-unit id="label.genre_name">
+        <source>label.genre_name</source>
+        <target>Genre name</target>
+      </trans-unit>
+      <trans-unit id="label.sort_alias">
+        <source>label.sort_alias</source>
+        <target>Sort by alias</target>
+      </trans-unit>
+      <trans-unit id="label.sort_genre">
+        <source>label.sort_genre</source>
+        <target>Sort by genre</target>
+      </trans-unit>
+      <trans-unit id="label.stock">
+        <source>label.stock</source>
+        <target>Items in stock</target>
+      </trans-unit>
+      <trans-unit id="label.email">
+        <source>label.email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="label.nick">
+        <source>label.nick</source>
+        <target>Nick</target>
+      </trans-unit>
+      <trans-unit id="label.password">
+        <source>label.password</source>
+        <target>Password</target>
       </trans-unit>
       <trans-unit id="message.empty_list">
         <source>message.empty_list</source>
@@ -28,15 +108,111 @@
       </trans-unit>
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
-        <target>Record not found.</target>
+        <target>Not found anything in the database.</target>
       </trans-unit>
-      <trans-unit id="title.record_list">
-        <source>title.record_list</source>
-        <target>Records list</target>
+      <trans-unit id="message.added_success">
+        <source>message.added_success</source>
+        <target>Added successfully!</target>
       </trans-unit>
-      <trans-unit id="title.record_view">
-        <source>title.record_view</source>
-        <target>Record view #%id%</target>
+      <trans-unit id="message.edit_success">
+        <source>message.edit_success</source>
+        <target>Edited successfully!</target>
+      </trans-unit>
+      <trans-unit id="message.delete_success">
+        <source>message.delete_success</source>
+        <target>Deleted successfully!</target>
+      </trans-unit>
+      <trans-unit id="message.delete_error">
+        <source>message.delete_error</source>
+        <target>Cannot be deleted.</target>
+      </trans-unit>
+      <trans-unit id="message.form_error">
+        <source>message.form_error</source>
+        <target>Error</target>
+      </trans-unit>
+      <trans-unit id="title.objects_list">
+        <source>title.objects_list</source>
+        <target>Objects</target>
+      </trans-unit>
+      <trans-unit id="title.records_list">
+        <source>title.records_list</source>
+        <target>Records</target>
+      </trans-unit>
+      <trans-unit id="title.authors_list">
+        <source>title.authors_list</source>
+        <target>Authors</target>
+      </trans-unit>
+      <trans-unit id="title.genres_list">
+        <source>title.genres_list</source>
+        <target>Genres</target>
+      </trans-unit>
+      <trans-unit id="title.reservations_list">
+        <source>title.reservations_list</source>
+        <target>Reservations</target>
+      </trans-unit>
+      <trans-unit id="title.users_list">
+        <source>title.users_list</source>
+        <target>Users</target>
+      </trans-unit>
+      <trans-unit id="title.create_new">
+        <source>title.create_new</source>
+        <target>Add new object to the database</target>
+      </trans-unit>
+      <trans-unit id="title.object_add">
+        <source>title.object_add</source>
+        <target>Add object</target>
+      </trans-unit>
+      <trans-unit id="title.object_create">
+        <source>title.object_create</source>
+        <target>Create object</target>
+      </trans-unit>
+      <trans-unit id="title.object_edit">
+        <source>title.object_edit</source>
+        <target>Edit object</target>
+      </trans-unit>
+      <trans-unit id="title.object_delete">
+        <source>title.object_delete</source>
+        <target>Delete object</target>
+      </trans-unit>
+      <trans-unit id="title.details">
+        <source>title.details</source>
+        <target>Details</target>
+      </trans-unit>
+      <trans-unit id="title.welcome">
+        <source>title.welcome</source>
+        <target>Welcome!</target>
+      </trans-unit>
+      <trans-unit id="title.login">
+        <source>title.login</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="title.logout">
+        <source>title.logout</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="title.reservation_alter">
+        <source>title.reservation_alter</source>
+        <target>Alter reservation</target>
+      </trans-unit>
+      <trans-unit id="title.homepage">
+        <source>title.homepage</source>
+        <target>Ebay.com</target>
+      </trans-unit>
+      <trans-unit id="title.homepage_welcome">
+        <source>title.homepage_welcome</source>
+        <target>Hello, welcome to eBay.com!</target>
+      </trans-unit>
+      <trans-unit id="title.homepage_look">
+        <source>title.homepage_look</source>
+        <target>Take a look at our stuff:</target>
+      </trans-unit>
+      <trans-unit id="title.homepage_here">
+        <source>title.homepage_here</source>
+        <target>Here!</target>
+      </trans-unit>
+      <trans-unit id="title.homepage_reservation">
+        <source>title.homepage_reservation</source>
+        <target>Already chosen? Make a reservation:</target>
       </trans-unit>
     </body>
   </file>

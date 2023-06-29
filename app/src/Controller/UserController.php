@@ -90,7 +90,7 @@ class UserController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Edited successfully!')
+                $this->translator->trans('message.edit_success')
             );
 
             return $this->redirectToRoute('ebay_users');

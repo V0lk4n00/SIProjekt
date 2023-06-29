@@ -109,7 +109,7 @@ class AuthorController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Author added successfully!')
+                $this->translator->trans('message.added_success')
             );
 
             return $this->redirectToRoute('ebay_authors');
@@ -147,7 +147,7 @@ class AuthorController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Edited successfully!')
+                $this->translator->trans('message.edit_success')
             );
 
             return $this->redirectToRoute('ebay_authors');
@@ -176,7 +176,7 @@ class AuthorController extends AbstractController
         if (!$this->authorService->canBeDeleted($author)) {
             $this->addFlash(
                 'warning',
-                $this->translator->trans('Author cannot be deleted because they have a record assigned to them.')
+                $this->translator->trans('message.delete_error')
             );
 
             return $this->redirectToRoute('ebay_authors');
@@ -193,7 +193,7 @@ class AuthorController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Deleted successfully!')
+                $this->translator->trans('message.delete_success')
             );
 
             return $this->redirectToRoute('ebay_authors');

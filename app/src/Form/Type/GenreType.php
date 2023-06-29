@@ -33,7 +33,7 @@ class GenreType extends AbstractType
             'genreName',
             TextType::class,
             [
-            'label' => 'Genre:',
+            'label' => 'label.genre_name',
             'required' => true,
             'attr' => ['max_length' => 64],
             ]

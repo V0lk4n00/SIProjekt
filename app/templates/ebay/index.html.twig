@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Ebay.com'|trans }}
+    {{ 'title.homepage'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -9,20 +9,20 @@
         <div class="row">
             <div class="col-xs-12 text-center">
                 <h1>
-                    Hello, welcome to eBay.com!
+                    {{ 'title.homepage_welcome'|trans }}
                 </h1>
             </div>
             <div>
                 <p>
-                    Take a look at our stuff:
-                    <a class="btn btn-outline-primary m-2" href="{{ url('ebay_records') }}" title="Records">
-                        Here!
+                    {{ 'title.homepage_look'|trans }}
+                    <a class="btn btn-outline-primary m-2" href="{{ url('ebay_records') }}" title="{{ 'title.homepage_here'|trans }}">
+                        {{ 'title.homepage_here'|trans }}
                     </a>
                 </p>
                 <p>
-                    Already chosen? Make a reservation:
-                    <a class="btn btn-outline-secondary m-2" href="{{ url('reservation_create') }}" title="Reservation">
-                        Here!
+                    {{ 'title.homepage_reservation'|trans }}
+                    <a class="btn btn-outline-secondary m-2" href="{{ url('reservation_create') }}" title="{{ 'title.homepage_here'|trans }}">
+                        {{ 'title.homepage_here'|trans }}
                     </a>
                 </p>
             </div>

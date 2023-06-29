@@ -38,7 +38,7 @@ class UserType extends AbstractType
             'email',
             EmailType::class,
             [
-                'label' => 'Email',
+                'label' => 'label.email',
                 'required' => true,
                 'attr' => ['max_length' => 255],
             ]
@@ -47,7 +47,7 @@ class UserType extends AbstractType
             'password',
             PasswordType::class,
             [
-                'label' => 'Password',
+                'label' => 'label.password',
                 'required' => true,
                 'attr' => ['max_length' => 255],
             ]

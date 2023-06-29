@@ -85,7 +85,7 @@ class RecordController extends AbstractController
         if ($record->getRental() !== $this->getUser()) {
             $this->addFlash(
                 'warning',
-                $this->translator->trans('Record not found.')
+                $this->translator->trans('message.record_not_found')
             );
 
             return $this->redirectToRoute('ebay_index');
@@ -127,7 +127,7 @@ class RecordController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Record added successfully!')
+                $this->translator->trans('message.added_success')
             );
 
             return $this->redirectToRoute('ebay_records');
@@ -154,7 +154,7 @@ class RecordController extends AbstractController
         if ($record->getRental() !== $this->getUser()) {
             $this->addFlash(
                 'warning',
-                $this->translator->trans('Record not found.')
+                $this->translator->trans('message.record_not_found')
             );
 
             return $this->redirectToRoute('ebay_index');
@@ -174,7 +174,7 @@ class RecordController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Record edited successfully!')
+                $this->translator->trans('message.edit_success')
             );
 
             return $this->redirectToRoute('ebay_records');
@@ -204,7 +204,7 @@ class RecordController extends AbstractController
         if ($record->getRental() !== $this->getUser()) {
             $this->addFlash(
                 'warning',
-                $this->translator->trans('Record not found.')
+                $this->translator->trans('message.record_not_found')
             );
 
             return $this->redirectToRoute('ebay_index');
@@ -220,7 +220,7 @@ class RecordController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('Record deleted successfully!')
+                $this->translator->trans('message.delete_success')
             );
 
             return $this->redirectToRoute('ebay_records');

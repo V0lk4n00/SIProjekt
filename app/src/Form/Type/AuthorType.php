@@ -34,7 +34,7 @@ class AuthorType extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label' => 'Name:',
+                    'label' => 'label.name',
                     'required' => false,
                     'attr' => ['max_length' => 64],
                 ]
@@ -43,7 +43,7 @@ class AuthorType extends AbstractType
                 'surname',
                 TextType::class,
                 [
-                    'label' => 'Surname:',
+                    'label' => 'label.surname',
                     'required' => false,
                     'attr' => ['max_length' => 64],
                 ]
@@ -52,7 +52,7 @@ class AuthorType extends AbstractType
                 'alias',
                 TextType::class,
                 [
-                    'label' => 'Alias:',
+                    'label' => 'label.alias',
                     'required' => true,
                     'attr' => ['max_length' => 64],
                 ]

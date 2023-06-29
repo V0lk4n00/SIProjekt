@@ -1,45 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ reservation.email }}
+    {{ 'title.details'|trans }}
 {% endblock %}
 
 {% block body %}
     <body>
-    <div class="container">
-        <div class="row">
-            <h1>Reservation Details</h1>
-            {% if reservation is defined and reservation|length %}
-                <dl class="dl-horizontal">
-                    <dt>ID</dt>
-                    <dd>{{ reservation.id }}</dd>
-                    <dt>Email</dt>
-                    <dd>{{  reservation.email }}</dd>
-                    <dt>Nick</dt>
-                    <dd>{{ reservation.nick }}</dd>
-                    <dt>Content</dt>
-                    <dd>{{ reservation.content }}</dd>
-                    <dt>Actions</dt>
-                    <dd>
-                        <a class="btn btn-outline-success me-2 mt-2" href="{{ url('reservation_delete', {id: reservation.id}) }}" title="Accept">
-                            Accept
-                        </a>
-                        <a class="btn btn-outline-danger me-2 mt-2" href="{{ url('reservation_delete', {id: reservation.id}) }}" title="Decline">
-                            Decline
-                        </a>
-                        <a class="btn btn-outline-dark mt-2" href="{{ url('ebay_reservations')}}" title="Return">
-                            Return
-                        </a>
-                    </dd>
-                </dl>
-            {% else %}
-                {% include 'default/_single_alert_message.html.twig' with {
-                    type: 'warning',
-                    message: 'Reservation not found'
-                } %}
-            {% endif %}
+        <div class="container">
+            <div class="row">
+                <h1>{{ 'title.details'|trans }}</h1>
+                {% if reservation is defined and reservation|length %}
+                    <dl class="dl-horizontal">
+                        <dt>{{ 'label.id'|trans }}</dt>
+                        <dd>{{ reservation.id }}</dd>
+                        <dt>{{ 'label.email'|trans }}</dt>
+                        <dd>{{  reservation.email }}</dd>
+                        <dt>{{ 'label.nick'|trans }}</dt>
+                        <dd>{{ reservation.nick }}</dd>
+                        <dt>{{ 'label.content'|trans }}</dt>
+                        <dd>{{ reservation.content }}</dd>
+                        <dt>{{ 'label.actions'|trans }}</dt>
+                        <dd>
+                            <a class="btn btn-outline-success me-2 mt-2" href="{{ url('reservation_delete', {id: reservation.id}) }}" title="{{ 'action.accept'|trans }}">
+                                {{ 'action.accept'|trans }}
+                            </a>
+                            <a class="btn btn-outline-danger me-2 mt-2" href="{{ url('reservation_delete', {id: reservation.id}) }}" title="{{ 'action.decline'|trans }}">
+                                {{ 'action.decline'|trans }}
+                            </a>
+                            <a class="btn btn-outline-dark mt-2" href="{{ url('ebay_reservations')}}" title="{{ 'action.return'|trans }}">
+                                {{ 'action.return'|trans }}
+                            </a>
+                        </dd>
+                    </dl>
+                {% else %}
+                    {% include 'default/_single_alert_message.html.twig' with {
+                        type: 'warning',
+                        message: 'message.record_not_found'|trans
+                    } %}
+                {% endif %}
+            </div>
         </div>
-    </div>
     </body>
 
 {% endblock %}
