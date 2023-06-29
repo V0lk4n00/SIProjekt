@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Delete Reservation
+{% endblock %}
+
+{% block body %}
+    <body>
+    <div class="container">
+        <div class="row">
+            {% include 'default/_form.html.twig' with {
+                page_title: 'Delete Reservation'|trans({'%id%': reservation.id|default('')}),
+                form: form,
+                submit_label: 'Delete'|trans,
+                back_to_list_path: 'ebay_reservations',
+            } %}
+
+        </div>
+    </div>
+    </body>
+{% endblock %}

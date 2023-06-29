@@ -6,7 +6,6 @@
 namespace App\Service;
 
 use App\Entity\Record;
-use App\Entity\User;
 use App\Interface\RecordServiceInterface;
 use App\Repository\RecordRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -42,7 +41,7 @@ class RecordService implements RecordServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int  $page   Page number
+     * @param int $page Page number
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */

@@ -43,8 +43,12 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/login, roles: PUBLIC_ACCESS}
         - { path: ^/records, roles: PUBLIC_ACCESS}
-        - { path: ^/ebay/genres, roles: ROLE_ADMIN}
         - { path: ^/ebay/authors, roles: ROLE_ADMIN}
+        - { path: ^/ebay/genres, roles: ROLE_ADMIN}
+        - { path: ^/ebay/reservations/create, roles: PUBLIC_ACCESS}
+        - { path: ^/ebay/reservations, roles: ROLE_ADMIN}
+
+
 
 when@test:
     security:
