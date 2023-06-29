@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\RecordRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -22,6 +23,9 @@ class Record
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 1, max: 255)]
     private ?string $title = null;
 
     /**
@@ -34,6 +38,8 @@ class Record
         fetch: 'EXTRA_LAZY',
     )]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Type(Genre::class)]
     private ?Genre $genre = null;
 
     #[ORM\ManyToOne(
@@ -41,6 +47,8 @@ class Record
         fetch: 'EXTRA_LAZY',
     )]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Type(Author::class)]
     private ?Author $author = null;
 
     /**
@@ -48,13 +56,18 @@ class Record
      *
      * @var User|null
      */
-    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
+    #[ORM\ManyToOne(
+        targetEntity: User::class,
+        fetch: 'EXTRA_LAZY'
+    )]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Type(User::class)]
     private ?User $rental;
 
     #[ORM\Column]
+    #[Assert\Type('integer')]
+    #[Assert\NotBlank]
     #[Assert\GreaterThanOrEqual(0)]
     private ?int $inStock = null;
 
