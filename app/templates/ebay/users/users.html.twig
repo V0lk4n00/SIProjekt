@@ -26,8 +26,13 @@
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.password }}</td>
                                 <td class="text-center">
-                                    <a class="btn btn-outline-info me-2" href="{{ url('user_edit', {id: user.id}) }}" title="{{ 'action.edit'|trans }}">
-                                        {{ 'action.edit'|trans }}
+                                    <a class="btn btn-outline-info me-2" href="{{ url('user_edit_email', {id: user.id}) }}" title="{{ 'action.edit_email'|trans }}">
+                                        {{ 'action.edit_email'|trans }}
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a class="btn btn-outline-info me-2" href="{{ url('user_edit_password', {id: user.id}) }}" title="{{ 'action.edit_password'|trans }}">
+                                        {{ 'action.edit_password'|trans }}
                                     </a>
                                 </td>
                             </tr>

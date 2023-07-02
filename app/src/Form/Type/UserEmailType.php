@@ -12,14 +12,13 @@ namespace App\Form\Type;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class UserType.
+ * Class UserEmailType.
  */
-class UserType extends AbstractType
+class UserEmailType extends AbstractType
 {
     /**
      * Builds the form.
@@ -39,15 +38,6 @@ class UserType extends AbstractType
             EmailType::class,
             [
                 'label' => 'label.email',
-                'required' => true,
-                'attr' => ['max_length' => 255],
-            ]
-        );
-        $builder->add(
-            'password',
-            PasswordType::class,
-            [
-                'label' => 'label.password',
                 'required' => true,
                 'attr' => ['max_length' => 255],
             ]

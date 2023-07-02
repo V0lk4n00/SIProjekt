@@ -14,12 +14,10 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 5%">{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'record.id') }}</th>
-                                <th style="width: 10%">{{ knp_pagination_sortable(pagination, 'label.alias'|trans, 'author.alias') }}</th>
-                                <th class="text-center" style="width: 10%;">{{ 'label.sort_alias'|trans }}</th>
-                                <th style="width: 25%;">{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'record.title') }}</th>
+                                <th style="width: 15%">{{ knp_pagination_sortable(pagination, 'label.alias'|trans, 'author.alias') }}</th>
+                                <th style="width: 35%;">{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'record.title') }}</th>
                                 <th style="width: 15%">{{ knp_pagination_sortable(pagination, 'label.genre_name'|trans, 'genre.genreName') }}</th>
-                                <th class="text-center" style="width: 10%;">{{ 'label.sort_genre'|trans }}</th>
-                                <th class="text-center" style="width: 10%;">{{ 'label.stock'|trans }}</th>
+                                <th class="text-center" style="width: 15%;">{{ 'label.stock'|trans }}</th>
                                 <th class="text-center" style="width: 15%;">{{ 'label.actions'|trans }}</th>
                             </tr>
                         </thead>
@@ -27,14 +25,12 @@
                         {% for record in pagination.items %}
                             <tr>
                                 <td>{{ record.id }}</td>
-                                <td>{{ record.author.alias }}</td>
                                 <td>
                                     <a href="{{ url('ebay_records', {'filters.author_id' : record.author.id}) }}" title="{{ record.author.alias }}">
                                         {{ record.author.alias }}
                                     </a>
                                 </td>
                                 <td>{{ record.title }}</td>
-                                <td>{{ record.genre.genreName }}</td>
                                 <td>
                                     <a href="{{ url('ebay_records', {'filters.genre_id' : record.genre.id}) }}" title="{{ record.genre.genreName }}">
                                         {{ record.genre.genreName }}
