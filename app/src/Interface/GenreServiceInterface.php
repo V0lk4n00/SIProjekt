@@ -29,6 +29,11 @@ interface GenreServiceInterface
      */
     public function save(Genre $genre): void;
 
+    /**
+     * @param Genre $genre Genre entity
+     *
+     * @return void Result
+     */
     public function delete(Genre $genre): void;
 
     /**

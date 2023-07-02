@@ -69,19 +69,26 @@ class Record
 
     /**
      * Primary key.
+     *
+     * @return int|null Result
      */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null Result
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
-     * @return $this
+     * @param string $title Title
+     *
+     * @return $this Result
      */
     public function setTitle(string $title): self
     {
@@ -90,13 +97,18 @@ class Record
         return $this;
     }
 
+    /**
+     * @return Genre|null Result
+     */
     public function getGenre(): ?Genre
     {
         return $this->genre;
     }
 
     /**
-     * @return $this
+     * @param Genre|null $genre Genre name
+     *
+     * @return $this Result
      */
     public function setGenre(?Genre $genre): self
     {
@@ -105,13 +117,18 @@ class Record
         return $this;
     }
 
+    /**
+     * @return Author|null Result
+     */
     public function getAuthor(): ?Author
     {
         return $this->author;
     }
 
     /**
-     * @return $this
+     * @param Author|null $author Author
+     *
+     * @return $this Result
      */
     public function setAuthor(?Author $author): self
     {
@@ -120,13 +137,18 @@ class Record
         return $this;
     }
 
+    /**
+     * @return User|null Result
+     */
     public function getRental(): ?User
     {
         return $this->rental;
     }
 
     /**
-     * @return $this
+     * @param User|null $rental Rental
+     *
+     * @return $this Result
      */
     public function setRental(?User $rental): self
     {
@@ -135,13 +157,18 @@ class Record
         return $this;
     }
 
+    /**
+     * @return int|null Result
+     */
     public function getInStock(): ?int
     {
         return $this->inStock;
     }
 
     /**
-     * @return $this
+     * @param int $inStock In stock
+     *
+     * @return $this Result
      */
     public function setInStock(int $inStock): self
     {

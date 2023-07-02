@@ -66,6 +66,8 @@ class AuthorController extends AbstractController
     /**
      * Show action.
      *
+     * @param Author $author Author
+     *
      * @return Response HTTP response
      */
     #[Route(

@@ -29,5 +29,10 @@ interface ReservationServiceInterface
      */
     public function save(Reservation $reservation): void;
 
+    /**
+     * @param Reservation $reservation Reservation entity
+     *
+     * @return void Result
+     */
     public function delete(Reservation $reservation): void;
 }

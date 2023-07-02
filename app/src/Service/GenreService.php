@@ -91,6 +91,11 @@ class GenreService implements GenreServiceInterface
         }
     }
 
+    /**
+     * @param Genre $genre Genre entity
+     *
+     * @return void Result
+     */
     public function delete(Genre $genre): void
     {
         $this->genreRepository->delete($genre);

@@ -39,18 +39,26 @@ class Reservation
     #[Assert\NotBlank]
     private ?string $content = null;
 
+    /**
+     * @return int|null Result
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null Result
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
     /**
-     * @return $this
+     * @param string $email Email
+     *
+     * @return $this Result
      */
     public function setEmail(string $email): self
     {
@@ -59,13 +67,18 @@ class Reservation
         return $this;
     }
 
+    /**
+     * @return string|null Result
+     */
     public function getNick(): ?string
     {
         return $this->nick;
     }
 
     /**
-     * @return $this
+     * @param string $nick Nick
+     *
+     * @return $this Result
      */
     public function setNick(string $nick): self
     {
@@ -74,13 +87,18 @@ class Reservation
         return $this;
     }
 
+    /**
+     * @return string|null Result
+     */
     public function getContent(): ?string
     {
         return $this->content;
     }
 
     /**
-     * @return $this
+     * @param string $content Content
+     *
+     * @return $this Result
      */
     public function setContent(string $content): self
     {

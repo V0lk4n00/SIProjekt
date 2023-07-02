@@ -1,7 +1,7 @@
 <?php
+
 /**
- * This is the license block.
- * It can contain licensing information, copyright notices, etc.
+ * User service.
  */
 
 namespace App\Service;
@@ -38,6 +38,8 @@ class UserService implements UserServiceInterface
 
     /**
      * Save user.
+     *
+     * @param User $user User entity
      */
     public function save(User $user): void
     {

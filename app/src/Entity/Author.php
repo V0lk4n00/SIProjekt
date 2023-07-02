@@ -66,19 +66,26 @@ class Author
 
     /**
      * Primary key.
+     *
+     * @return int|null Result
      */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null Result
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @return $this
+     * @param string|null $name Name
+     *
+     * @return $this Result
      */
     public function setName(?string $name): self
     {
@@ -87,13 +94,18 @@ class Author
         return $this;
     }
 
+    /**
+     * @return string|null Result
+     */
     public function getSurname(): ?string
     {
         return $this->surname;
     }
 
     /**
-     * @return $this
+     * @param string|null $surname Surname
+     *
+     * @return $this Result
      */
     public function setSurname(?string $surname): self
     {
@@ -102,13 +114,18 @@ class Author
         return $this;
     }
 
+    /**
+     * @return string|null Result
+     */
     public function getAlias(): ?string
     {
         return $this->alias;
     }
 
     /**
-     * @return $this
+     * @param string $alias Alias
+     *
+     * @return $this Result
      */
     public function setAlias(string $alias): self
     {
@@ -117,13 +134,18 @@ class Author
         return $this;
     }
 
+    /**
+     * @return string|null Result
+     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
     /**
-     * @return $this
+     * @param string $slug Slug
+     *
+     * @return $this Result
      */
     public function setSlug(string $slug): self
     {

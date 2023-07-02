@@ -49,19 +49,26 @@ class Genre
 
     /**
      * Primary key.
+     *
+     * @return int|null Result
      */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null Result
+     */
     public function getGenreName(): ?string
     {
         return $this->genreName;
     }
 
     /**
-     * @return $this
+     * @param string $genreName Genre name
+     *
+     * @return $this Result
      */
     public function setGenreName(string $genreName): self
     {
@@ -70,13 +77,18 @@ class Genre
         return $this;
     }
 
+    /**
+     * @return string|null Result
+     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
     /**
-     * @return $this
+     * @param string $slug Slug
+     *
+     * @return $this Result
      */
     public function setSlug(string $slug): self
     {

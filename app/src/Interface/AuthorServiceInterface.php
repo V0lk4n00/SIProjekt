@@ -29,6 +29,11 @@ interface AuthorServiceInterface
      */
     public function save(Author $author): void;
 
+    /**
+     * @param Author $author Author entity
+     *
+     * @return void Result
+     */
     public function delete(Author $author): void;
 
     /**
