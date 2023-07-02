@@ -28,8 +28,6 @@ class AuthorController extends AbstractController
 
     /**
      * Translator.
-     *
-     * @var TranslatorInterface
      */
     private TranslatorInterface $translator;
 
@@ -67,8 +65,6 @@ class AuthorController extends AbstractController
 
     /**
      * Show action.
-     *
-     * @param  Author $author
      *
      * @return Response HTTP response
      */

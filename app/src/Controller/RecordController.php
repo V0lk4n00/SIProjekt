@@ -35,6 +35,7 @@ class RecordController extends AbstractController
 
     /**
      * Constructor.
+     *
      * @param RecordServiceInterface $recordService Record service
      * @param TranslatorInterface    $translator    Translator
      */

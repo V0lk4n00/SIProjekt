@@ -2,6 +2,7 @@
 /**
  * Record service interface.
  */
+
 namespace App\Interface;
 
 use App\Entity\Record;

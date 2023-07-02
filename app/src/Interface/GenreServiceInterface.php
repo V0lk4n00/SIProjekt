@@ -2,6 +2,7 @@
 /**
  * Genre service interface.
  */
+
 namespace App\Interface;
 
 use App\Entity\Genre;
@@ -28,11 +29,6 @@ interface GenreServiceInterface
      */
     public function save(Genre $genre): void;
 
-    /**
-     * @param Genre $genre
-     *
-     * @return void
-     */
     public function delete(Genre $genre): void;
 
     /**

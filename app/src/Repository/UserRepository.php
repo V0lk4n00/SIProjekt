@@ -3,6 +3,7 @@
 /**
  * User repository.
  */
+
 namespace App\Repository;
 
 use App\Entity\User;
@@ -36,21 +37,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
-    /**
-     * @param ManagerRegistry             $registry
-     * @param UserPasswordHasherInterface $passwordHasher
-     */
     public function __construct(ManagerRegistry $registry, UserPasswordHasherInterface $passwordHasher)
     {
         parent::__construct($registry, User::class);
         $this->passwordHasher = $passwordHasher;
     }
 
-    /**
-     * @param User $entity
-     *
-     * @return void
-     */
     public function save(User $entity): void
     {
         $hashedPassword = $this->passwordHasher->hashPassword($entity, $entity->getPassword());
@@ -59,12 +51,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * @param User $entity
-     * @param bool $flush
-     *
-     * @return void
-     */
     public function remove(User $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -88,8 +74,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
-     * @param PasswordAuthenticatedUserInterface $user
-     * @param string                             $newHashedPassword
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {

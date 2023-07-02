@@ -64,11 +64,6 @@ class ReservationService implements ReservationServiceInterface
         $this->reservationRepository->save($reservation);
     }
 
-    /**
-     * @param Reservation $reservation
-     *
-     * @return void
-     */
     public function delete(Reservation $reservation): void
     {
         $this->reservationRepository->delete($reservation);

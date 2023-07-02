@@ -34,12 +34,8 @@ class UserController extends AbstractController
      */
     private TranslatorInterface $translator;
 
-
     /**
      * Constructor.
-     *
-     * @param UserServiceInterface $userService
-     * @param TranslatorInterface  $translator
      */
     public function __construct(UserServiceInterface $userService, TranslatorInterface $translator)
     {

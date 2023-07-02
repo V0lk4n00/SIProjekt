@@ -2,6 +2,7 @@
 /**
  * Author service interface.
  */
+
 namespace App\Interface;
 
 use App\Entity\Author;
@@ -28,11 +29,6 @@ interface AuthorServiceInterface
      */
     public function save(Author $author): void;
 
-    /**
-     * @param Author $author
-     *
-     * @return void
-     */
     public function delete(Author $author): void;
 
     /**

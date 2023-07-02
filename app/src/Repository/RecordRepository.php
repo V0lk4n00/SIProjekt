@@ -2,6 +2,7 @@
 /**
  * Record repository.
  */
+
 namespace App\Repository;
 
 use App\Entity\Author;
@@ -34,9 +35,6 @@ class RecordRepository extends ServiceEntityRepository
      */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
-    /**
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Record::class);
@@ -44,8 +42,6 @@ class RecordRepository extends ServiceEntityRepository
 
     /**
      * Query all records.
-     *
-     * @param array $filters
      *
      * @return QueryBuilder Query builder
      */

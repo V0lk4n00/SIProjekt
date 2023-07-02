@@ -31,17 +31,11 @@ class GenreRepository extends ServiceEntityRepository
      */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
-    /**
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Genre::class);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()

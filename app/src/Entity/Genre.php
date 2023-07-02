@@ -2,6 +2,7 @@
 /**
  * Genre entity.
  */
+
 namespace App\Entity;
 
 use App\Repository\GenreRepository;
@@ -22,8 +23,6 @@ class Genre
 {
     /**
      * Primary key.
-     *
-     * @var int|null
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,8 +31,6 @@ class Genre
 
     /**
      * Title.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
@@ -43,8 +40,6 @@ class Genre
 
     /**
      * Slug.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 64)]
     #[Assert\Type('string')]
@@ -54,25 +49,18 @@ class Genre
 
     /**
      * Primary key.
-     *
-     * @return int|null
      */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getGenreName(): ?string
     {
         return $this->genreName;
     }
 
     /**
-     * @param string $genreName
-     *
      * @return $this
      */
     public function setGenreName(string $genreName): self
@@ -82,17 +70,12 @@ class Genre
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
     /**
-     * @param string $slug
-     *
      * @return $this
      */
     public function setSlug(string $slug): self

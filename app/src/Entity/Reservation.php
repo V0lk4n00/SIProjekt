@@ -3,6 +3,7 @@
 /**
  * Reservation entity.
  */
+
 namespace App\Entity;
 
 use App\Repository\ReservationRepository;
@@ -38,25 +39,17 @@ class Reservation
     #[Assert\NotBlank]
     private ?string $content = null;
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
     /**
-     * @param string $email
-     *
      * @return $this
      */
     public function setEmail(string $email): self
@@ -66,17 +59,12 @@ class Reservation
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getNick(): ?string
     {
         return $this->nick;
     }
 
     /**
-     * @param string $nick
-     *
      * @return $this
      */
     public function setNick(string $nick): self
@@ -86,17 +74,12 @@ class Reservation
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getContent(): ?string
     {
         return $this->content;
     }
 
     /**
-     * @param string $content
-     *
      * @return $this
      */
     public function setContent(string $content): self

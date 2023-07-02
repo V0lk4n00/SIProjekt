@@ -91,10 +91,9 @@ class AuthorService implements AuthorServiceInterface
             return false;
         }
     }
+
     /**
      * @param Author $author Author
-     *
-     * @return void
      */
     public function delete(Author $author): void
     {

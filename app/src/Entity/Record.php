@@ -2,11 +2,11 @@
 /**
  * Record entity.
  */
+
 namespace App\Entity;
 
 use App\Repository\RecordRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -30,8 +30,6 @@ class Record
 
     /**
      * Genre.
-     *
-     * @var Genre|null
      */
     #[ORM\ManyToOne(
         targetEntity: Genre::class,
@@ -53,8 +51,6 @@ class Record
 
     /**
      * Rental.
-     *
-     * @var User|null
      */
     #[ORM\ManyToOne(
         targetEntity: User::class,
@@ -73,25 +69,18 @@ class Record
 
     /**
      * Primary key.
-     *
-     * @return int|null
      */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
-     * @param string $title
-     *
      * @return $this
      */
     public function setTitle(string $title): self
@@ -101,17 +90,12 @@ class Record
         return $this;
     }
 
-    /**
-     * @return Genre|null
-     */
     public function getGenre(): ?Genre
     {
         return $this->genre;
     }
 
     /**
-     * @param Genre|null $genre
-     *
      * @return $this
      */
     public function setGenre(?Genre $genre): self
@@ -121,17 +105,12 @@ class Record
         return $this;
     }
 
-    /**
-     * @return Author|null
-     */
     public function getAuthor(): ?Author
     {
         return $this->author;
     }
 
     /**
-     * @param Author|null $author
-     *
      * @return $this
      */
     public function setAuthor(?Author $author): self
@@ -141,17 +120,12 @@ class Record
         return $this;
     }
 
-    /**
-     * @return User|null
-     */
     public function getRental(): ?User
     {
         return $this->rental;
     }
 
     /**
-     * @param User|null $rental
-     *
      * @return $this
      */
     public function setRental(?User $rental): self
@@ -161,17 +135,12 @@ class Record
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getInStock(): ?int
     {
         return $this->inStock;
     }
 
     /**
-     * @param int $inStock
-     *
      * @return $this
      */
     public function setInStock(int $inStock): self

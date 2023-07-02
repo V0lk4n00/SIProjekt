@@ -2,6 +2,7 @@
 /**
  * Reservation repository.
  */
+
 namespace App\Repository;
 
 use App\Entity\Reservation;
@@ -34,9 +35,6 @@ class ReservationRepository extends ServiceEntityRepository
      */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
-    /**
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Reservation::class);

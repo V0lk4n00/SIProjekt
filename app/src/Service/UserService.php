@@ -38,7 +38,6 @@ class UserService implements UserServiceInterface
 
     /**
      * Save user.
-     * @param User $user
      */
     public function save(User $user): void
     {

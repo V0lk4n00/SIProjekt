@@ -2,6 +2,7 @@
 /**
  * Author entity.
  */
+
 namespace App\Entity;
 
 use App\Repository\AuthorRepository;
@@ -23,8 +24,6 @@ class Author
 {
     /**
      * Primary key.
-     *
-     * @var int|null
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,8 +32,6 @@ class Author
 
     /**
      * Name.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Assert\Type('string')]
@@ -43,8 +40,6 @@ class Author
 
     /**
      * Surname.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Assert\Type('string')]
@@ -53,8 +48,6 @@ class Author
 
     /**
      * Alias.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
@@ -64,8 +57,6 @@ class Author
 
     /**
      * Slug.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 64)]
     #[Assert\Type('string')]
@@ -75,25 +66,18 @@ class Author
 
     /**
      * Primary key.
-     *
-     * @return int|null
      */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string|null $name
-     *
      * @return $this
      */
     public function setName(?string $name): self
@@ -103,17 +87,12 @@ class Author
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSurname(): ?string
     {
         return $this->surname;
     }
 
     /**
-     * @param string|null $surname
-     *
      * @return $this
      */
     public function setSurname(?string $surname): self
@@ -123,17 +102,12 @@ class Author
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAlias(): ?string
     {
         return $this->alias;
     }
 
     /**
-     * @param string $alias
-     *
      * @return $this
      */
     public function setAlias(string $alias): self
@@ -143,17 +117,12 @@ class Author
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
     /**
-     * @param string $slug
-     *
      * @return $this
      */
     public function setSlug(string $slug): self
