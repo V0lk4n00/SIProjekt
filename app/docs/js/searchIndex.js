@@ -131,6 +131,11 @@ Search.appendIndex(
             "summary": "Edit\u0020action.",
             "url": "classes/App-Controller-RecordController.html#method_edit"
         },                {
+            "fqsen": "\\App\\Controller\\RecordController\u003A\u003AeditQuantity\u0028\u0029",
+            "name": "editQuantity",
+            "summary": "Edit\u0020quantity\u0020action.",
+            "url": "classes/App-Controller-RecordController.html#method_editQuantity"
+        },                {
             "fqsen": "\\App\\Controller\\RecordController\u003A\u003Adelete\u0028\u0029",
             "name": "delete",
             "summary": "Delete\u0020action.",
@@ -606,6 +611,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Entity-Reservation.html#method_setContent"
         },                {
+            "fqsen": "\\App\\Entity\\Reservation\u003A\u003AgetRecord\u0028\u0029",
+            "name": "getRecord",
+            "summary": "",
+            "url": "classes/App-Entity-Reservation.html#method_getRecord"
+        },                {
+            "fqsen": "\\App\\Entity\\Reservation\u003A\u003AsetRecord\u0028\u0029",
+            "name": "setRecord",
+            "summary": "",
+            "url": "classes/App-Entity-Reservation.html#method_setRecord"
+        },                {
             "fqsen": "\\App\\Entity\\Reservation\u003A\u003A\u0024id",
             "name": "id",
             "summary": "",
@@ -625,6 +640,11 @@ Search.appendIndex(
             "name": "content",
             "summary": "",
             "url": "classes/App-Entity-Reservation.html#property_content"
+        },                {
+            "fqsen": "\\App\\Entity\\Reservation\u003A\u003A\u0024record",
+            "name": "record",
+            "summary": "",
+            "url": "classes/App-Entity-Reservation.html#property_record"
         },                {
             "fqsen": "\\App\\Entity\\User",
             "name": "User",
@@ -745,6 +765,26 @@ Search.appendIndex(
             "name": "getBlockPrefix",
             "summary": "Returns\u0020the\u0020prefix\u0020of\u0020the\u0020template\u0020block\u0020name\u0020for\u0020this\u0020type.",
             "url": "classes/App-Form-Type-GenreType.html#method_getBlockPrefix"
+        },                {
+            "fqsen": "\\App\\Form\\Type\\RecordQuantityType",
+            "name": "RecordQuantityType",
+            "summary": "RecordType\u0020class.",
+            "url": "classes/App-Form-Type-RecordQuantityType.html"
+        },                {
+            "fqsen": "\\App\\Form\\Type\\RecordQuantityType\u003A\u003AbuildForm\u0028\u0029",
+            "name": "buildForm",
+            "summary": "Builds\u0020the\u0020form.",
+            "url": "classes/App-Form-Type-RecordQuantityType.html#method_buildForm"
+        },                {
+            "fqsen": "\\App\\Form\\Type\\RecordQuantityType\u003A\u003AconfigureOptions\u0028\u0029",
+            "name": "configureOptions",
+            "summary": "Configures\u0020the\u0020options\u0020for\u0020this\u0020type.",
+            "url": "classes/App-Form-Type-RecordQuantityType.html#method_configureOptions"
+        },                {
+            "fqsen": "\\App\\Form\\Type\\RecordQuantityType\u003A\u003AgetBlockPrefix\u0028\u0029",
+            "name": "getBlockPrefix",
+            "summary": "Returns\u0020the\u0020prefix\u0020of\u0020the\u0020template\u0020block\u0020name\u0020for\u0020this\u0020type.",
+            "url": "classes/App-Form-Type-RecordQuantityType.html#method_getBlockPrefix"
         },                {
             "fqsen": "\\App\\Form\\Type\\RecordType",
             "name": "RecordType",

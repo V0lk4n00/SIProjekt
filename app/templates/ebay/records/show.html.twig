@@ -19,8 +19,6 @@
                         <dd>{{ record.title }}</dd>
                         <dt>{{ 'label.genre_name'|trans }}</dt>
                         <dd>{{ record.genre.genreName }}</dd>
-                        <dt>{{ 'label.stock'|trans }}</dt>
-                        <dd>{{ record.inStock }}</dd>
                         <dt>{{ 'label.actions'|trans }}</dt>
                         <dd>
                             <a class="btn btn-outline-info me-2 mt-2" href="{{ url('record_edit', {id: record.id}) }}" title="{{ 'action.edit'|trans }}">

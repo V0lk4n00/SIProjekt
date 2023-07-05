@@ -51,7 +51,8 @@ class ReservationRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
-            ->select('partial reservation.{id, email, nick, content}')
+            ->select('partial reservation.{id, email, nick, content, record}')
+            ->join('reservation.record', 'record')
             ->orderBy('reservation.id', 'ASC');
     }
 

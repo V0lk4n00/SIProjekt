@@ -43,8 +43,7 @@ class RecordType extends AbstractType
                     'required' => true,
                     'attr' => ['max_length' => 64],
                 ]
-            );
-        $builder
+            )
             ->add(
                 'genre',
                 EntityType::class,

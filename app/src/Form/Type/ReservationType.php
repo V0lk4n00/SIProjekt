@@ -5,7 +5,9 @@
 
 namespace App\Form\Type;
 
+use App\Entity\Record;
 use App\Entity\Reservation;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -55,6 +57,19 @@ class ReservationType extends AbstractType
                     'label' => 'label.content',
                     'required' => true,
                     'attr' => ['max_length' => 255],
+                ]
+            )
+            ->add(
+                'record',
+                EntityType::class,
+                [
+                    'class' => Record::class,
+                    'choice_label' => function ($record): int {
+                        return $record->getId();
+                    },
+                    'label' => 'label.record_id',
+                    'placeholder' => 'label.record_id',
+                    'required' => true,
                 ]
             );
     }

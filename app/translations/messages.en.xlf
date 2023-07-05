@@ -38,6 +38,10 @@
         <source>action.delete</source>
         <target>Delete</target>
       </trans-unit>
+      <trans-unit id="action.resolve">
+        <source>action.resolve</source>
+        <target>Resolve</target>
+      </trans-unit>
       <trans-unit id="action.create">
         <source>action.create</source>
         <target>Create</target>
@@ -53,6 +57,10 @@
       <trans-unit id="action.save">
         <source>action.save</source>
         <target>Save</target>
+      </trans-unit>
+      <trans-unit id="action.rent_or_accept">
+        <source>action.rent_or_accept</source>
+        <target>Rent or accept return</target>
       </trans-unit>
       <trans-unit id="label.actions">
         <source>label.actions</source>
@@ -110,6 +118,10 @@
         <source>label.password</source>
         <target>Password</target>
       </trans-unit>
+      <trans-unit id="label.record_id">
+        <source>label.record_id</source>
+        <target>Record ID</target>
+      </trans-unit>
       <trans-unit id="message.empty_list">
         <source>message.empty_list</source>
         <target>List is empty.</target>
@@ -162,25 +174,73 @@
         <source>title.users_list</source>
         <target>Users</target>
       </trans-unit>
-      <trans-unit id="title.create_new">
-        <source>title.create_new</source>
-        <target>Add new object to the database</target>
+      <trans-unit id="title.create_record">
+        <source>title.create_record</source>
+        <target>Add new record to the database</target>
       </trans-unit>
-      <trans-unit id="title.object_add">
-        <source>title.object_add</source>
-        <target>Add object</target>
+      <trans-unit id="title.create_genre">
+        <source>title.create_genre</source>
+        <target>Add new genre to the database</target>
       </trans-unit>
-      <trans-unit id="title.object_create">
-        <source>title.object_create</source>
-        <target>Create object</target>
+      <trans-unit id="title.create_author">
+        <source>title.create_author</source>
+        <target>Add new author to the database</target>
       </trans-unit>
-      <trans-unit id="title.object_edit">
-        <source>title.object_edit</source>
-        <target>Edit object</target>
+      <trans-unit id="title.create_reservation">
+        <source>title.create_reservation</source>
+        <target>Create reservation</target>
       </trans-unit>
-      <trans-unit id="title.object_delete">
-        <source>title.object_delete</source>
-        <target>Delete object</target>
+      <trans-unit id="title.record_add">
+        <source>title.record_add</source>
+        <target>Add record</target>
+      </trans-unit>
+      <trans-unit id="title.genre_add">
+        <source>title.genre_add</source>
+        <target>Add genre</target>
+      </trans-unit>
+      <trans-unit id="title.author_add">
+        <source>title.author_add</source>
+        <target>Add author</target>
+      </trans-unit>
+      <trans-unit id="title.record_create">
+        <source>title.record_create</source>
+        <target>Create record</target>
+      </trans-unit>
+      <trans-unit id="title.genre_create">
+        <source>title.genre_create</source>
+        <target>Create genre</target>
+      </trans-unit>
+      <trans-unit id="title.author_create">
+        <source>title.author_create</source>
+        <target>Create author</target>
+      </trans-unit>
+      <trans-unit id="title.record_edit">
+        <source>title.record_edit</source>
+        <target>Edit record</target>
+      </trans-unit>
+      <trans-unit id="title.genre_edit">
+        <source>title.genre_edit</source>
+        <target>Edit genre</target>
+      </trans-unit>
+      <trans-unit id="title.author_edit">
+        <source>title.author_edit</source>
+        <target>Edit author</target>
+      </trans-unit>
+      <trans-unit id="title.user_edit">
+        <source>title.user_edit</source>
+        <target>Edit user</target>
+      </trans-unit>
+      <trans-unit id="title.record_delete">
+        <source>title.record_delete</source>
+        <target>Delete record</target>
+      </trans-unit>
+      <trans-unit id="title.genre_delete">
+        <source>title.genre_delete</source>
+        <target>Delete genre</target>
+      </trans-unit>
+      <trans-unit id="title.author_delete">
+        <source>title.author_delete</source>
+        <target>Delete author</target>
       </trans-unit>
       <trans-unit id="title.details">
         <source>title.details</source>
@@ -198,9 +258,9 @@
         <source>title.logout</source>
         <target>Logout</target>
       </trans-unit>
-      <trans-unit id="title.reservation_alter">
-        <source>title.reservation_alter</source>
-        <target>Alter reservation</target>
+      <trans-unit id="title.reservation_delete">
+        <source>title.reservation_delete</source>
+        <target>Delete reservation</target>
       </trans-unit>
       <trans-unit id="title.homepage">
         <source>title.homepage</source>

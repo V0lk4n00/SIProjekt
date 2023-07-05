@@ -38,6 +38,10 @@
                 <source>action.delete</source>
                 <target>Usuń</target>
             </trans-unit>
+            <trans-unit id="action.resolve">
+                <source>action.resolve</source>
+                <target>Zakończ</target>
+            </trans-unit>
             <trans-unit id="action.create">
                 <source>action.create</source>
                 <target>Stwórz</target>
@@ -53,6 +57,10 @@
             <trans-unit id="action.save">
                 <source>action.save</source>
                 <target>Zapisz</target>
+            </trans-unit>
+            <trans-unit id="action.rent_or_accept">
+                <source>action.rent_or_accept</source>
+                <target>Wypożycz lub przyjmij zwrot</target>
             </trans-unit>
             <trans-unit id="label.actions">
                 <source>label.actions</source>
@@ -110,6 +118,10 @@
                 <source>label.password</source>
                 <target>Hasło</target>
             </trans-unit>
+            <trans-unit id="label.record_id">
+                <source>label.record_id</source>
+                <target>ID rekordu</target>
+            </trans-unit>
             <trans-unit id="message.empty_list">
                 <source>message.empty_list</source>
                 <target>Lista jest pusta.</target>
@@ -162,25 +174,73 @@
                 <source>title.users_list</source>
                 <target>Użytkownicy</target>
             </trans-unit>
-            <trans-unit id="title.create_new">
-                <source>title.create_new</source>
-                <target>Dodaj nowy obiekt do bazy danych</target>
+            <trans-unit id="title.create_record">
+                <source>title.create_record</source>
+                <target>Dodaj nowy rekord do bazy</target>
             </trans-unit>
-            <trans-unit id="title.object_add">
-                <source>title.object_add</source>
-                <target>Dodaj obiekt</target>
+            <trans-unit id="title.create_genre">
+                <source>title.create_genre</source>
+                <target>Dodaj nowy gatunek do bazy</target>
             </trans-unit>
-            <trans-unit id="title.object_create">
-                <source>title.object_create</source>
-                <target>Stwórz obiekt</target>
+            <trans-unit id="title.create_author">
+                <source>title.create_author</source>
+                <target>Dodaj nowego autora do bazy</target>
             </trans-unit>
-            <trans-unit id="title.object_edit">
-                <source>title.object_edit</source>
-                <target>Edytuj obiekt</target>
+            <trans-unit id="title.create_reservation">
+                <source>title.create_reservation</source>
+                <target>Stwórz rezerwację</target>
             </trans-unit>
-            <trans-unit id="title.object_delete">
-                <source>title.object_delete</source>
-                <target>Usuń obiekt</target>
+            <trans-unit id="title.record_add">
+                <source>title.record_add</source>
+                <target>Dodaj rekord</target>
+            </trans-unit>
+            <trans-unit id="title.genre_add">
+                <source>title.genre_add</source>
+                <target>Dodaj gatunek</target>
+            </trans-unit>
+            <trans-unit id="title.author_add">
+                <source>title.author_add</source>
+                <target>Dodaj autora</target>
+            </trans-unit>
+            <trans-unit id="title.record_create">
+                <source>title.record_create</source>
+                <target>Stwórz rekord</target>
+            </trans-unit>
+            <trans-unit id="title.genre_create">
+                <source>title.genre_create</source>
+                <target>Stwórz gatunek</target>
+            </trans-unit>
+            <trans-unit id="title.author_create">
+                <source>title.author_create</source>
+                <target>Stwórz autora</target>
+            </trans-unit>
+            <trans-unit id="title.record_edit">
+                <source>title.record_edit</source>
+                <target>Edytuj rekord</target>
+            </trans-unit>
+            <trans-unit id="title.genre_edit">
+                <source>title.genre_edit</source>
+                <target>Edytuj gatunek</target>
+            </trans-unit>
+            <trans-unit id="title.author_edit">
+                <source>title.author_edit</source>
+                <target>Edytuj autora</target>
+            </trans-unit>
+            <trans-unit id="title.user_edit">
+                <source>title.user_edit</source>
+                <target>Edytuj użytkownika</target>
+            </trans-unit>
+            <trans-unit id="title.record_delete">
+                <source>title.record_delete</source>
+                <target>Usuń rekord</target>
+            </trans-unit>
+            <trans-unit id="title.genre_delete">
+                <source>title.genre_delete</source>
+                <target>Usuń gatunek</target>
+            </trans-unit>
+            <trans-unit id="title.author_delete">
+                <source>title.author_delete</source>
+                <target>Usuń autora</target>
             </trans-unit>
             <trans-unit id="title.details">
                 <source>title.details</source>
@@ -198,9 +258,9 @@
                 <source>title.logout</source>
                 <target>Wyloguj się</target>
             </trans-unit>
-            <trans-unit id="title.reservation_alter">
-                <source>title.reservation_alter</source>
-                <target>Edytuj rezerwację</target>
+            <trans-unit id="title.reservation_delete">
+                <source>title.reservation_delete</source>
+                <target>Usuń rezerwację</target>
             </trans-unit>
             <trans-unit id="title.homepage">
                 <source>title.homepage</source>

@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Record;
 use App\Entity\User;
+use App\Form\Type\RecordQuantityType;
 use App\Form\Type\RecordType;
 use App\Interface\RecordServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -179,6 +180,56 @@ class RecordController extends AbstractController
             );
 
             return $this->redirectToRoute('ebay_records');
+        }
+
+        return $this->render(
+            'ebay/records/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'record' => $record,
+            ]
+        );
+    }
+
+    /**
+     * Edit quantity action.
+     *
+     * @param Request $request HTTP request
+     * @param Record  $record  Record entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/{id}/edit/quantity', name: 'record_edit_quantity', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    #[IsGranted('EDIT', subject: 'record')]
+    public function editQuantity(Request $request, Record $record): Response
+    {
+        if ($record->getRental() !== $this->getUser()) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('message.record_not_found')
+            );
+
+            return $this->redirectToRoute('ebay_index');
+        }
+        $form = $this->createForm(
+            RecordQuantityType::class,
+            $record,
+            [
+                'method' => 'PUT',
+                'action' => $this->generateUrl('record_edit_quantity', ['id' => $record->getId()]),
+            ]
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->recordService->save($record);
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.edit_success')
+            );
+
+            return $this->redirectToRoute('ebay_reservations');
         }
 
         return $this->render(

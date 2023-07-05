@@ -14,9 +14,10 @@
                         <thead>
                         <tr>
                             <th class="text-center" style="width: 5%">{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'reservation.id') }}</th>
-                            <th style="width: 35%">{{ knp_pagination_sortable(pagination, 'label.email'|trans, 'reservation.email') }}</th>
-                            <th style="width: 20%">{{ knp_pagination_sortable(pagination, 'label.nick'|trans, 'reservation.nick') }}</th>
-                            <th style="width: 20%">{{ knp_pagination_sortable(pagination, 'label.content'|trans, 'reservation.content') }}</th>
+                            <th style="width: 15%">{{ knp_pagination_sortable(pagination, 'label.email'|trans, 'reservation.email') }}</th>
+                            <th style="width: 15%">{{ knp_pagination_sortable(pagination, 'label.nick'|trans, 'reservation.nick') }}</th>
+                            <th style="width: 30%">{{ knp_pagination_sortable(pagination, 'label.content'|trans, 'reservation.content') }}</th>
+                            <th style="width: 10%">{{ knp_pagination_sortable(pagination, 'label.record_id'|trans, 'record.id') }}</th>
                             <th class="text-center" style="width: 20%">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -27,6 +28,7 @@
                                 <td>{{ reservation.email }}</td>
                                 <td>{{ reservation.nick }}</td>
                                 <td>{{ reservation.content }}</td>
+                                <td>{{ reservation.record.id }}</td>
                                 <td class="text-center">
                                     <a class="btn btn-outline-primary me-2" href="{{ url('ebay_reservations_show', {id: reservation.id}) }}" title="{{ 'action.view'|trans }}">
                                         {{ 'action.view'|trans }}

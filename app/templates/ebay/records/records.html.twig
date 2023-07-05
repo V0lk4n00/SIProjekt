@@ -70,10 +70,10 @@
             </div>
             <div class="row">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <h4>{{ 'title.create_new'|trans }}</h4>
+                <h4>{{ 'title.create_record'|trans }}</h4>
                 <div>
-                    <a class="btn btn-outline-success mb-3" style="width: 100%" href="{{ url('record_create')}}" title="{{ 'title.object_add'|trans }}">
-                        {{ 'title.object_add'|trans }}
+                    <a class="btn btn-outline-success mb-3" style="width: 100%" href="{{ url('record_create')}}" title="{{ 'title.record_add'|trans }}">
+                        {{ 'title.record_add'|trans }}
                     </a>
                 </div>
                 {% endif %}

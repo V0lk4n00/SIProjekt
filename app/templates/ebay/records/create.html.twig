@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.object_create'|trans }}
+    {{ 'title.record_create'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 {% include 'default/_form.html.twig' with {
-                    page_title: 'title.object_create'|trans,
+                    page_title: 'title.record_create'|trans,
                     form: form,
                     submit_label: 'action.save'|trans,
                     back_to_list_path: 'ebay_records',

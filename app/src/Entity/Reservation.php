@@ -39,6 +39,15 @@ class Reservation
     #[Assert\NotBlank]
     private ?string $content = null;
 
+    #[ORM\ManyToOne(
+        targetEntity: Record::class,
+        fetch: 'EXTRA_LAZY',
+    )]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Type(Record::class)]
+    private ?Record $record = null;
+
     /**
      * @return int|null Result
      */
@@ -103,6 +112,26 @@ class Reservation
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * @return Record|null Result
+     */
+    public function getRecord(): ?Record
+    {
+        return $this->record;
+    }
+
+    /**
+     * @param Record|null $record Record setter
+     *
+     * @return $this Result
+     */
+    public function setRecord(?Record $record): self
+    {
+        $this->record = $record;
 
         return $this;
     }
