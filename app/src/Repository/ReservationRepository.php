@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Reservation repository.
  */
@@ -63,8 +64,8 @@ class ReservationRepository extends ServiceEntityRepository
      */
     public function save(Reservation $reservation): void
     {
-        $this->_em->persist($reservation);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($reservation);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -74,8 +75,8 @@ class ReservationRepository extends ServiceEntityRepository
      */
     public function delete(Reservation $reservation): void
     {
-        $this->_em->remove($reservation);
-        $this->_em->flush();
+        $this->getEntityManager()->remove($reservation);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -85,7 +86,7 @@ class ReservationRepository extends ServiceEntityRepository
      *
      * @return QueryBuilder Query builder
      */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('reservation');
     }

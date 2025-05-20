@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Landing page controller.
  */

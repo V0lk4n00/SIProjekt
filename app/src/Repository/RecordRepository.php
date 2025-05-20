@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Record repository.
  */
@@ -114,8 +115,8 @@ class RecordRepository extends ServiceEntityRepository
      */
     public function save(Record $record): void
     {
-        $this->_em->persist($record);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($record);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -125,8 +126,8 @@ class RecordRepository extends ServiceEntityRepository
      */
     public function delete(Record $record): void
     {
-        $this->_em->remove($record);
-        $this->_em->flush();
+        $this->getEntityManager()->remove($record);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -136,7 +137,7 @@ class RecordRepository extends ServiceEntityRepository
      *
      * @return QueryBuilder Query builder
      */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('record');
     }

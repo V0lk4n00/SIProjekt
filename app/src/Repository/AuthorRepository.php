@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Author repository.
  */
@@ -62,8 +63,8 @@ class AuthorRepository extends ServiceEntityRepository
      */
     public function save(Author $author): void
     {
-        $this->_em->persist($author);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($author);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -73,8 +74,8 @@ class AuthorRepository extends ServiceEntityRepository
      */
     public function delete(Author $author): void
     {
-        $this->_em->remove($author);
-        $this->_em->flush();
+        $this->getEntityManager()->remove($author);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -84,7 +85,7 @@ class AuthorRepository extends ServiceEntityRepository
      *
      * @return QueryBuilder Query builder
      */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('author');
     }

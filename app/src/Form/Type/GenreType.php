@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Genre type.
  */
@@ -33,9 +34,9 @@ class GenreType extends AbstractType
             'genreName',
             TextType::class,
             [
-            'label' => 'label.genre_name',
-            'required' => true,
-            'attr' => ['max_length' => 64],
+                'label' => 'label.genre_name',
+                'required' => true,
+                'attr' => ['max_length' => 64],
             ]
         );
     }

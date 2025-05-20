@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Record fixtures.
  */
@@ -10,6 +11,8 @@ use App\Entity\Genre;
 use App\Entity\Record;
 use App\Entity\User;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Generator;
 
 /**
  * Class RecordFixtures.
@@ -33,15 +36,15 @@ class RecordFixtures extends AbstractBaseFixtures implements DependentFixtureInt
             $record = new Record();
             $record->setTitle($this->faker->sentence);
             /** @var Record $genre */
-            $genre = $this->getRandomReference('genres');
+            $genre = $this->getRandomReference('genres', Genre::class);
             /* @var Genre $genre */
             $record->setGenre($genre);
             /** @var Record $author */
-            $author = $this->getRandomReference('authors');
+            $author = $this->getRandomReference('authors', Author::class);
             /* @var Author $author */
             $record->setAuthor($author);
             /** @var User $rental */
-            $rental = $this->getRandomReference('admins');
+            $rental = $this->getRandomReference('admins', User::class);
             $record->setRental($rental);
             $record->setInStock(1);
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Genre repository.
  */
@@ -56,8 +57,8 @@ class GenreRepository extends ServiceEntityRepository
      */
     public function save(Genre $genre): void
     {
-        $this->_em->persist($genre);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($genre);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -67,8 +68,8 @@ class GenreRepository extends ServiceEntityRepository
      */
     public function delete(Genre $genre): void
     {
-        $this->_em->remove($genre);
-        $this->_em->flush();
+        $this->getEntityManager()->remove($genre);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -78,7 +79,7 @@ class GenreRepository extends ServiceEntityRepository
      *
      * @return QueryBuilder Query builder
      */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('genre');
     }

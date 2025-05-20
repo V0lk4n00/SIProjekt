@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the license block.
  * It can contain licensing information, copyright notices, etc.

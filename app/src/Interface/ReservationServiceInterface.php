@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Reservation service interface.
  */
