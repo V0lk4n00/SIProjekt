@@ -10,7 +10,7 @@ use App\Entity\Record;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -40,18 +40,19 @@ class RecordVoter extends Voter
     public const DELETE = 'DELETE';
 
     /**
-     * Security helper.
-     */
-    private Security $security;
-
-    /**
      * OrderVoter constructor.
      *
-     * @param Security $security Security helper
+     * Security helper.
      */
-    public function __construct(Security $security)
+    private AuthorizationCheckerInterface $auth;
+
+
+    /**
+     * @param AuthorizationCheckerInterface $auth
+     */
+    public function __construct(AuthorizationCheckerInterface $auth)
     {
-        $this->security = $security;
+        $this->auth = $auth;
     }
 
     /**
@@ -62,7 +63,7 @@ class RecordVoter extends Voter
      *
      * @return bool Result
      */
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE])
             && $subject instanceof Record;
@@ -78,14 +79,14 @@ class RecordVoter extends Voter
      *
      * @return bool Vote result
      */
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
         if (!$user instanceof UserInterface) {
             return false;
         }
 
-        if ($this->security->isGranted('ROLE_ADMIN')) {
+        if ($this->auth->isGranted('ROLE_ADMIN')) {
             return true;
         }
 
