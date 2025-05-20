@@ -23,6 +23,13 @@ interface UserServiceInterface
     public function save(User $user): void;
 
     /**
+     * Save user.
+     *
+     * @param User $user User entity
+     */
+    public function saveEmail(User $user): void;
+
+    /**
      * Get paginated list.
      *
      * @param int $page Page number

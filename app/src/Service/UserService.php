@@ -47,6 +47,16 @@ class UserService implements UserServiceInterface
     }
 
     /**
+     * Save user.
+     *
+     * @param User $user User entity
+     */
+    public function saveEmail(User $user): void
+    {
+        $this->userRepository->saveEmail($user);
+    }
+
+    /**
      * Get paginated list.
      *
      * @param int $page Page number

@@ -62,6 +62,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * @param User $entity User entity
+     *
+     * @return void Result
+     */
+    public function saveEmail(User $entity): void
+    {
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param User $entity User entity
      * @param bool $flush  Flush
      *
      * @return void Result

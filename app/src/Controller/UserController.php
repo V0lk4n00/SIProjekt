@@ -87,7 +87,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->userService->save($user);
+            $this->userService->saveEmail($user);
 
             $this->addFlash(
                 'success',
