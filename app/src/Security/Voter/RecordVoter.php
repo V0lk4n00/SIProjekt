@@ -46,8 +46,8 @@ class RecordVoter extends Voter
      */
     private AuthorizationCheckerInterface $auth;
 
-
     /**
+     * Constructor.
      * @param AuthorizationCheckerInterface $auth
      */
     public function __construct(AuthorizationCheckerInterface $auth)

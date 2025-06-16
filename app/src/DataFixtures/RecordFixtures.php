@@ -11,8 +11,6 @@ use App\Entity\Genre;
 use App\Entity\Record;
 use App\Entity\User;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use Generator;
 
 /**
  * Class RecordFixtures.

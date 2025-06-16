@@ -10,8 +10,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use InvalidArgumentException;
-use LogicException;
 
 /**
  * Class AbstractBaseFixtures.
@@ -70,7 +68,7 @@ abstract class AbstractBaseFixtures extends Fixture
             $entity = $factory($i);
 
             if (null === $entity) {
-                throw new LogicException('Did you forget to return the entity object from your callback to BaseFixture::createMany()?');
+                throw new \LogicException('Did you forget to return the entity object from your callback to BaseFixture::createMany()?');
             }
 
             $this->manager->persist($entity);
@@ -130,13 +128,13 @@ abstract class AbstractBaseFixtures extends Fixture
     private function getReferenceNameListByClassName(string $referenceGroupName, string $className): array
     {
         if (!array_key_exists($className, $this->referenceRepository->getIdentitiesByClass())) {
-            throw new InvalidArgumentException(sprintf('Did not find any references saved with the name "%s"', $className));
+            throw new \InvalidArgumentException(sprintf('Did not find any references saved with the name "%s"', $className));
         }
 
         $referenceNameListByClass = array_keys($this->referenceRepository->getIdentitiesByClass()[$className]);
 
         if ([] === $referenceNameListByClass) {
-            throw new InvalidArgumentException(sprintf('Did not find any references saved with the name "%s"', $className));
+            throw new \InvalidArgumentException(sprintf('Did not find any references saved with the name "%s"', $className));
         }
 
         $referenceNameList = array_filter(
@@ -145,7 +143,7 @@ abstract class AbstractBaseFixtures extends Fixture
         );
 
         if ([] === $referenceNameList) {
-            throw new InvalidArgumentException(sprintf('Did not find any references saved with the group name "%s" and class name "%s"', $referenceGroupName, $className));
+            throw new \InvalidArgumentException(sprintf('Did not find any references saved with the group name "%s" and class name "%s"', $referenceGroupName, $className));
         }
 
         return $referenceNameList;
