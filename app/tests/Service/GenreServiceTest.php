@@ -3,6 +3,7 @@
 /**
  * Genre service test.
  */
+
 namespace App\Tests\Service;
 
 use App\Entity\Genre;
@@ -23,8 +24,6 @@ class GenreServiceTest extends TestCase
 
     /**
      * Setup function.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -41,8 +40,6 @@ class GenreServiceTest extends TestCase
 
     /**
      * Tests the save method.
-     *
-     * @return void
      */
     public function testSave(): void
     {
@@ -58,8 +55,6 @@ class GenreServiceTest extends TestCase
 
     /**
      * Tests the delete method.
-     *
-     * @return void
      */
     public function testDelete(): void
     {
@@ -76,8 +71,6 @@ class GenreServiceTest extends TestCase
     /**
      * Tests if you can delete a category when no records exist.
      * Should return true.
-     *
-     * @return void
      */
     public function testCanBeDeletedReturnsTrueWhenNoRecords(): void
     {
@@ -95,8 +88,6 @@ class GenreServiceTest extends TestCase
     /**
      * Tests if you can delete a category when records exist.
      * Should return false.
-     *
-     * @return void
      */
     public function testCanBeDeletedReturnsFalseWhenRecordsExist(): void
     {

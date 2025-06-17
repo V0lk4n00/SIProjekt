@@ -24,8 +24,6 @@ class AuthorServiceTest extends TestCase
 
     /**
      * Setup function.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -42,8 +40,6 @@ class AuthorServiceTest extends TestCase
 
     /**
      * Tests the save method.
-     *
-     * @return void
      */
     public function testSave(): void
     {
@@ -59,8 +55,6 @@ class AuthorServiceTest extends TestCase
 
     /**
      * Tests the delete method.
-     *
-     * @return void
      */
     public function testDelete(): void
     {
@@ -77,8 +71,6 @@ class AuthorServiceTest extends TestCase
     /**
      * Tests if you can delete an author when no records exist.
      * Should return true.
-     *
-     * @return void
      */
     public function testCanBeDeletedReturnsTrueWhenNoRecords(): void
     {
@@ -96,8 +88,6 @@ class AuthorServiceTest extends TestCase
     /**
      * Tests if you can delete an author when records exist.
      * Should return false.
-     *
-     * @return void
      */
     public function testCanBeDeletedReturnsFalseWhenRecordsExist(): void
     {

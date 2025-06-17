@@ -11,7 +11,8 @@ use App\Entity\User;
 use App\Form\Type\RecordQuantityType;
 use App\Form\Type\RecordType;
 use App\Interface\RecordServiceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+// use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -118,6 +119,9 @@ class RecordController extends AbstractController
         $user = $this->getUser();
         $record = new Record();
         $record->setRental($user);
+
+        $this->denyAccessUnlessGranted('CREATE', $record);
+
         $form = $this->createForm(
             RecordType::class,
             $record,
@@ -150,7 +154,12 @@ class RecordController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/edit', name: 'record_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    #[Route(
+        '/{id}/edit',
+        name: 'record_edit',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: 'GET|PUT'
+    )]
     #[IsGranted('EDIT', subject: 'record')]
     public function edit(Request $request, Record $record): Response
     {

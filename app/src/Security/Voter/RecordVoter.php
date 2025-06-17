@@ -19,6 +19,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class RecordVoter extends Voter
 {
     /**
+     * Create permission.
+     *
+     * @const string
+     */
+    public const CREATE = 'CREATE';
+
+    /**
      * Edit permission.
      *
      * @const string
@@ -48,7 +55,6 @@ class RecordVoter extends Voter
 
     /**
      * Constructor.
-     * @param AuthorizationCheckerInterface $auth
      */
     public function __construct(AuthorizationCheckerInterface $auth)
     {
@@ -65,7 +71,7 @@ class RecordVoter extends Voter
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE])
+        return in_array($attribute, [self::CREATE, self::EDIT, self::VIEW, self::DELETE])
             && $subject instanceof Record;
     }
 
@@ -90,23 +96,32 @@ class RecordVoter extends Voter
             return true;
         }
 
-        switch ($attribute) {
-            case self::EDIT:
-                /* @var $user User */
-                return $this->canEdit($subject, $user);
-            case self::VIEW:
-                /* @var $user User */
-                return $this->canView($subject, $user);
-            case self::DELETE:
-                /* @var $user User */
-                return $this->canDelete($subject, $user);
-        }
+        /* @var User $user */
 
-        return false;
+        return match ($attribute) {
+            self::CREATE => $this->canCreate($subject, $user),
+            self::EDIT => $this->canEdit($subject, $user),
+            self::VIEW => $this->canView($subject, $user),
+            self::DELETE => $this->canDelete($subject, $user),
+            default => false,
+        };
     }
 
     /**
-     * Checks if user can edit record.
+     * Checks if user can create a record.
+     *
+     * @param Record $record Record entity
+     * @param User   $user   User
+     *
+     * @return bool Result
+     */
+    private function canCreate(Record $record, User $user): bool
+    {
+        return $record->getAuthor() === $user;
+    }
+
+    /**
+     * Checks if user can edit a record.
      *
      * @param Record $record Record entity
      * @param User   $user   User
@@ -119,7 +134,7 @@ class RecordVoter extends Voter
     }
 
     /**
-     * Checks if user can view record.
+     * Checks if user can view a record.
      *
      * @param Record $record Record entity
      * @param User   $user   User
@@ -132,7 +147,7 @@ class RecordVoter extends Voter
     }
 
     /**
-     * Checks if user can delete record.
+     * Checks if user can delete a record.
      *
      * @param Record $record Record entity
      * @param User   $user   User

@@ -99,6 +99,8 @@
             "./vendor/bin/rector process src",
             "./vendor/bin/rector process tests"
         ],
+        "test": "vendor/bin/phpunit --colors=auto",
+
         "init-app" : [
             "./bin/console --no-interaction doctrine:migrations:migrate",
             "./bin/console --no-interaction doctrine:fixtures:load"
@@ -114,11 +116,12 @@
         }
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^8.3",
         "doctrine/doctrine-fixtures-bundle": "*",
         "escapestudios/symfony2-coding-standard": "*",
         "fakerphp/faker": "*",
         "friendsofphp/php-cs-fixer": "*",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "~10.5",
         "rector/rector": "^2.0",
         "squizlabs/php_codesniffer": "*",
         "symfony/browser-kit": "6.4.*",

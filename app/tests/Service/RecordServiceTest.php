@@ -24,8 +24,6 @@ class RecordServiceTest extends TestCase
 
     /**
      * Setup function.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -44,8 +42,6 @@ class RecordServiceTest extends TestCase
 
     /**
      * Tests the save method.
-     *
-     * @return void
      */
     public function testSave(): void
     {
@@ -61,8 +57,6 @@ class RecordServiceTest extends TestCase
 
     /**
      * Tests the delete method.
-     *
-     * @return void
      */
     public function testDelete(): void
     {

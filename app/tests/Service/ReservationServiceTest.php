@@ -3,6 +3,7 @@
 /**
  * Reservation service test.
  */
+
 namespace App\Tests\Service;
 
 use App\Entity\Reservation;
@@ -21,8 +22,6 @@ class ReservationServiceTest extends TestCase
 
     /**
      * Setup function.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -37,8 +36,6 @@ class ReservationServiceTest extends TestCase
 
     /**
      * Tests the save method.
-     *
-     * @return void
      */
     public function testSave(): void
     {
@@ -54,8 +51,6 @@ class ReservationServiceTest extends TestCase
 
     /**
      * Tests the delete method.
-     *
-     * @return void
      */
     public function testDelete(): void
     {

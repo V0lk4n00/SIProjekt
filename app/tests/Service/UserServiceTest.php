@@ -3,6 +3,7 @@
 /**
  * User service test.
  */
+
 namespace App\Tests\Service;
 
 use App\Entity\User;
@@ -21,8 +22,6 @@ class UserServiceTest extends TestCase
 
     /**
      * Setup function.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -37,8 +36,6 @@ class UserServiceTest extends TestCase
 
     /**
      * Tests the save method (email+password).
-     *
-     * @return void
      */
     public function testSave(): void
     {
@@ -54,8 +51,6 @@ class UserServiceTest extends TestCase
 
     /**
      * Tests the email saving method (email-only).
-     *
-     * @return void
      */
     public function testSaveEmail(): void
     {
