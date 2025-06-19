@@ -42,8 +42,11 @@ class AuthorService implements AuthorServiceInterface
      * @param RecordRepository   $recordRepository Record repository
      * @param PaginatorInterface $paginator        Paginator
      */
-    public function __construct(AuthorRepository $authorRepository, RecordRepository $recordRepository, PaginatorInterface $paginator)
-    {
+    public function __construct(
+        AuthorRepository $authorRepository,
+        RecordRepository $recordRepository,
+        PaginatorInterface $paginator,
+    ) {
         $this->authorRepository = $authorRepository;
         $this->recordRepository = $recordRepository;
         $this->paginator = $paginator;

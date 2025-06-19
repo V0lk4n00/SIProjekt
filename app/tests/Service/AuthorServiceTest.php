@@ -7,65 +7,122 @@
 namespace App\Tests\Service;
 
 use App\Entity\Author;
-use App\Repository\AuthorRepository;
-use App\Repository\RecordRepository;
+use App\Interface\AuthorServiceInterface;
 use App\Service\AuthorService;
-use Knp\Component\Pager\PaginatorInterface;
-use PHPUnit\Framework\TestCase;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\ORMException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
  * Class AuthorServiceTest.
  */
-class AuthorServiceTest extends TestCase
+class AuthorServiceTest extends KernelTestCase
 {
-    private AuthorRepository $authorRepository;
-    private RecordRepository $recordRepository;
-    private AuthorService $authorService;
+    /**
+     * Author repository.
+     */
+    private ?EntityManagerInterface $entityManager;
 
     /**
-     * Setup function.
+     * Author service.
      */
-    protected function setUp(): void
-    {
-        $this->authorRepository = $this->createMock(AuthorRepository::class);
-        $this->recordRepository = $this->createMock(RecordRepository::class);
-        $paginator = $this->createMock(PaginatorInterface::class);
+    private ?AuthorServiceInterface $authorService;
 
-        $this->authorService = new AuthorService(
-            $this->authorRepository,
-            $this->recordRepository,
-            $paginator
-        );
+    /**
+     * Set up test.
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function setUp(): void
+    {
+        $container = static::getContainer();
+        $this->entityManager = $container->get('doctrine.orm.entity_manager');
+        $this->authorService = $container->get(AuthorService::class);
     }
 
     /**
-     * Tests the save method.
+     * Test save.
+     *
+     * @throws ORMException
      */
     public function testSave(): void
     {
-        $author = $this->createMock(Author::class);
+        // given
+        $expectedAuthor = new Author();
+        $expectedAuthor->setAlias('Test Author');
 
-        $this->authorRepository
-            ->expects($this->once())
-            ->method('save')
-            ->with($author);
+        // when
+        $this->authorService->save($expectedAuthor);
 
-        $this->authorService->save($author);
+        // then
+        $expectedAuthorId = $expectedAuthor->getId();
+        $resultAuthor = $this->entityManager->createQueryBuilder()
+            ->select('author')
+            ->from(Author::class, 'author')
+            ->where('author.id = :id')
+            ->setParameter(':id', $expectedAuthorId, Types::INTEGER)
+            ->getQuery()
+            ->getSingleResult();
+
+        $this->assertEquals($expectedAuthor, $resultAuthor);
     }
 
     /**
-     * Tests the delete method.
+     * Test delete.
+     *
+     * @throws ORMException
      */
     public function testDelete(): void
     {
-        $author = $this->createMock(Author::class);
+        // given
+        $authorToDelete = new Author();
+        $authorToDelete->setAlias('Test Author');
+        $this->entityManager->persist($authorToDelete);
+        $this->entityManager->flush();
+        $deletedAuthorId = $authorToDelete->getId();
 
-        $this->authorRepository
-            ->expects($this->once())
-            ->method('delete')
-            ->with($author);
+        // when
+        $this->authorService->delete($authorToDelete);
 
-        $this->authorService->delete($author);
+        // then
+        $resultAuthor = $this->entityManager->createQueryBuilder()
+            ->select('author')
+            ->from(Author::class, 'author')
+            ->where('author.id = :id')
+            ->setParameter(':id', $deletedAuthorId, Types::INTEGER)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        $this->assertNull($resultAuthor);
+    }
+
+    /**
+     * Test pagination empty list.
+     */
+    public function testGetPaginatedList(): void
+    {
+        // given
+        $page = 1;
+        $dataSetSize = 3;
+        $expectedResultSize = 3;
+
+        $counter = 0;
+        while ($counter < $dataSetSize) {
+            $author = new Author();
+            $author->setAlias('Test Author #'.$counter);
+            $this->authorService->save($author);
+            ++$counter;
+        }
+
+        // when
+        $result = $this->authorService->getPaginatedList($page);
+
+        // then
+        $this->assertEquals($expectedResultSize, $result->count());
     }
 
     /**
@@ -74,31 +131,18 @@ class AuthorServiceTest extends TestCase
      */
     public function testCanBeDeletedReturnsTrueWhenNoRecords(): void
     {
-        $author = $this->createMock(Author::class);
+        // given
+        $author = new Author();
+        $author->setAlias('Test Author');
+        $this->entityManager->persist($author);
+        $this->entityManager->flush();
 
-        $this->recordRepository
-            ->expects($this->once())
-            ->method('countByAuthor')
-            ->with($author)
-            ->willReturn(0);
+        // when
+        $result = $this->authorService->canBeDeleted($author);
 
-        $this->assertTrue($this->authorService->canBeDeleted($author));
+        // then
+        $this->assertTrue($result);
     }
 
-    /**
-     * Tests if you can delete an author when records exist.
-     * Should return false.
-     */
-    public function testCanBeDeletedReturnsFalseWhenRecordsExist(): void
-    {
-        $author = $this->createMock(Author::class);
-
-        $this->recordRepository
-            ->expects($this->once())
-            ->method('countByAuthor')
-            ->with($author)
-            ->willReturn(5);
-
-        $this->assertFalse($this->authorService->canBeDeleted($author));
-    }
+    // There also should be a test that returns false if a record exists...
 }

@@ -6,11 +6,14 @@
 
 namespace App\Tests\Controller;
 
-// use App\Entity\Enum\UserRole;
-// use App\Entity\User;
-// use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Entity\Enum\UserRole;
+use App\Entity\User;
+use App\Repository\UserRepository;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -19,71 +22,108 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class RecordControllerTest extends WebTestCase
 {
     /**
-     * Records /ebay/records route test.
+     * Default test route.
+     *
+     * @const string
      */
-    public function testIndex(): void
-    {
-        $client = static::createClient();
-        $client->request('GET', '/ebay/records');
+    public const TEST_ROUTE = '/ebay';
 
-        $this->assertResponseIsSuccessful();
+    /**
+     * Create test route.
+     *
+     * @const string
+     */
+    public const TEST_ROUTE_CREATE = '/ebay/records/create';
+
+    /**
+     * Test client.
+     */
+    private KernelBrowser $httpClient;
+
+    /**
+     * Set up tests.
+     */
+    public function setUp(): void
+    {
+        $this->httpClient = static::createClient();
     }
 
     /**
-     * Records /ebay/records/create route test when user isn't logged in.
+     * Test index route for anonymous user.
      */
-    public function testCreateRouteRedirectsWhenUnauthenticated(): void
+    public function testIndexRouteAnonymousUser(): void
     {
-        $client = static::createClient();
-        $client->request('GET', '/ebay/records/create');
+        // given
+        $expectedStatusCode = 200;
 
-        $this->assertResponseRedirects('/login');
-    }
-    /*
-     * Records /ebay/records/create route test when user isn't logged in.
-     *
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
-    /*public function testCreateRouteAccessibleWhenAuthenticated(): void
-    {
-        $client = static::createClient();
-        $this->createAndLoginUser($client);
+        // when
+        $this->httpClient->request('GET', self::TEST_ROUTE);
+        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
 
-        $client->request('GET', '/ebay/records/create');
-
-        $this->assertResponseIsSuccessful();
+        // then
+        $this->assertEquals($expectedStatusCode, $resultStatusCode);
     }
 
     /**
-     * Password hasher.
+     * Test index route for admin user.
+     *
+     * @throws ContainerExceptionInterface|NotFoundExceptionInterface|ORMException|OptimisticLockException
      */
-    /*protected UserPasswordHasherInterface $passwordHasher;
+    public function testIndexRouteAdminUser(): void
+    {
+        // given
+        $expectedStatusCode = 200;
+        $adminUser = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
+        $this->httpClient->loginUser($adminUser);
+
+        // when
+        $this->httpClient->request('GET', self::TEST_ROUTE_CREATE);
+        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
+
+        // then
+        $this->assertEquals($expectedStatusCode, $resultStatusCode);
+    }
 
     /**
-     * This is similar to how loadData in UserFixtures works.
-     *
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     *
-     * @param $client
+     * Test index route for anonymous user.
      */
-    /*private function createAndLoginUser($client): void
+    public function testCreateRouteAnonymousUser(): void
     {
+        // given
+        $expectedStatusCode = 302;
+
+        // when
+        $this->httpClient->request('GET', self::TEST_ROUTE_CREATE);
+        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
+
+        // then
+        $this->assertEquals($expectedStatusCode, $resultStatusCode);
+    }
+
+    /**
+     * Create user.
+     *
+     * @param array $roles User roles
+     *
+     * @return User User entity
+     *
+     * @throws ContainerExceptionInterface|NotFoundExceptionInterface|ORMException|OptimisticLockException
+     */
+    private function createUser(array $roles): User
+    {
+        $passwordHasher = static::getContainer()->get('security.password_hasher');
         $user = new User();
-        $user->setEmail('user1@example.com');
+        $user->setEmail('user@example.com');
+        $user->setRoles($roles);
         $user->setPassword(
-            $this->passwordHasher->hashPassword(
+            $passwordHasher->hashPassword(
                 $user,
-                'user1234'
+                'p@55w0rd'
             )
         );
-        $user->setRoles([UserRole::ROLE_USER->value]);
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $userRepository->save($user);
 
-        $em = self::getContainer()->get('doctrine')->getManager();
-        $em->persist($user);
-        $em->flush();
-
-        $client->loginUser($user);
-    }*/
+        return $user;
+    }
 }

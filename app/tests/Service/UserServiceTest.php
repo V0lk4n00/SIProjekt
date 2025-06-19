@@ -6,61 +6,155 @@
 
 namespace App\Tests\Service;
 
+use App\Entity\Enum\UserRole;
 use App\Entity\User;
+use App\Interface\UserServiceInterface;
 use App\Repository\UserRepository;
 use App\Service\UserService;
-use Knp\Component\Pager\PaginatorInterface;
-use PHPUnit\Framework\TestCase;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
  * Class UserServiceTest.
  */
-class UserServiceTest extends TestCase
+class UserServiceTest extends KernelTestCase
 {
-    private UserRepository $userRepository;
-    private UserService $userService;
+    /**
+     * User repository.
+     */
+    private ?EntityManagerInterface $entityManager;
 
     /**
-     * Setup function.
+     * User service.
      */
-    protected function setUp(): void
-    {
-        $this->userRepository = $this->createMock(UserRepository::class);
-        $paginator = $this->createMock(PaginatorInterface::class);
+    private ?UserServiceInterface $userService;
 
-        $this->userService = new UserService(
-            $this->userRepository,
-            $paginator
-        );
+    /**
+     * Set up test.
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function setUp(): void
+    {
+        $container = static::getContainer();
+        $this->entityManager = $container->get('doctrine.orm.entity_manager');
+        $this->userService = $container->get(UserService::class);
     }
 
     /**
-     * Tests the save method (email+password).
+     * Test save (email + password).
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function testSave(): void
     {
-        $user = $this->createMock(User::class);
+        // given
+        $passwordHasher = static::getContainer()->get('security.password_hasher');
+        $expectedUser = new User();
+        $expectedUser->setEmail('user@example.com');
+        $expectedUser->setRoles([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
+        $expectedUser->setPassword(
+            $passwordHasher->hashPassword(
+                $expectedUser,
+                'p@55w0rd'
+            )
+        );
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $userRepository->save($expectedUser);
 
-        $this->userRepository
-            ->expects($this->once())
-            ->method('save')
-            ->with($user);
+        // when
+        $this->userService->save($expectedUser);
 
-        $this->userService->save($user);
+        // then
+        $expectedUserId = $expectedUser->getId();
+        $resultUser = $this->entityManager->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user')
+            ->where('user.id = :id')
+            ->setParameter(':id', $expectedUserId, Types::INTEGER)
+            ->getQuery()
+            ->getSingleResult();
+
+        $this->assertEquals($expectedUser, $resultUser);
     }
 
     /**
-     * Tests the email saving method (email-only).
+     * Test save (email only).
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function testSaveEmail(): void
     {
-        $user = $this->createMock(User::class);
+        // given
+        $passwordHasher = static::getContainer()->get('security.password_hasher');
+        $expectedUser = new User();
+        $expectedUser->setEmail('user@example.com');
+        $expectedUser->setRoles([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
+        $expectedUser->setPassword(
+            $passwordHasher->hashPassword(
+                $expectedUser,
+                'p@55w0rd'
+            )
+        );
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $userRepository->save($expectedUser);
 
-        $this->userRepository
-            ->expects($this->once())
-            ->method('saveEmail')
-            ->with($user);
+        // when
+        $this->userService->saveEmail($expectedUser);
 
-        $this->userService->saveEmail($user);
+        // then
+        $expectedUserId = $expectedUser->getId();
+        $resultUser = $this->entityManager->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user')
+            ->where('user.id = :id')
+            ->setParameter(':id', $expectedUserId, Types::INTEGER)
+            ->getQuery()
+            ->getSingleResult();
+
+        $this->assertEquals($expectedUser, $resultUser);
+    }
+
+    /**
+     * Test pagination empty list.
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function testGetPaginatedList(): void
+    {
+        // given
+        $page = 1;
+        $dataSetSize = 10;
+        $expectedResultSize = 10;
+
+        $counter = 0;
+        while ($counter < $dataSetSize) {
+            $passwordHasher = static::getContainer()->get('security.password_hasher');
+            $user = new User();
+            $user->setEmail('user#@example.com'.$counter);
+            $user->setRoles([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
+            $user->setPassword(
+                $passwordHasher->hashPassword(
+                    $user,
+                    'p@55w0rd'
+                )
+            );
+            $userRepository = static::getContainer()->get(UserRepository::class);
+            $userRepository->save($user);
+            ++$counter;
+        }
+
+        // when
+        $result = $this->userService->getPaginatedList($page);
+
+        // then
+        $this->assertEquals($expectedResultSize, $result->count());
     }
 }

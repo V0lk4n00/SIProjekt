@@ -7,17 +7,15 @@
 namespace App\Controller;
 
 use App\Entity\Record;
-use App\Entity\User;
 use App\Form\Type\RecordQuantityType;
 use App\Form\Type\RecordType;
 use App\Interface\RecordServiceInterface;
-// use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -46,7 +44,7 @@ class RecordController extends AbstractController
     {
         $this->recordService = $recordService;
         $this->translator = $translator;
-    }
+    }// end __construct()
 
     /**
      * Index action.
@@ -68,7 +66,7 @@ class RecordController extends AbstractController
         );
 
         return $this->render('ebay/records/records.html.twig', ['pagination' => $pagination]);
-    }
+    }// end index()
 
     /**
      * Show action.
@@ -99,7 +97,7 @@ class RecordController extends AbstractController
             'ebay/records/show.html.twig',
             ['record' => $record]
         );
-    }
+    }// end show()
 
     /**
      * Create action.
@@ -115,7 +113,6 @@ class RecordController extends AbstractController
     )]
     public function create(Request $request): Response
     {
-        /** @var User $user */
         $user = $this->getUser();
         $record = new Record();
         $record->setRental($user);
@@ -144,7 +141,7 @@ class RecordController extends AbstractController
             'ebay/records/create.html.twig',
             ['form' => $form->createView()]
         );
-    }
+    }// end create()
 
     /**
      * Edit action.
@@ -171,6 +168,7 @@ class RecordController extends AbstractController
 
             return $this->redirectToRoute('ebay_index');
         }
+
         $form = $this->createForm(
             RecordType::class,
             $record,
@@ -199,7 +197,7 @@ class RecordController extends AbstractController
                 'record' => $record,
             ]
         );
-    }
+    }// end edit()
 
     /**
      * Edit quantity action.
@@ -221,6 +219,7 @@ class RecordController extends AbstractController
 
             return $this->redirectToRoute('ebay_index');
         }
+
         $form = $this->createForm(
             RecordQuantityType::class,
             $record,
@@ -249,7 +248,7 @@ class RecordController extends AbstractController
                 'record' => $record,
             ]
         );
-    }
+    }// end editQuantity()
 
     /**
      * Delete action.
@@ -271,10 +270,15 @@ class RecordController extends AbstractController
 
             return $this->redirectToRoute('ebay_index');
         }
-        $form = $this->createForm(FormType::class, $record, [
-            'method' => 'DELETE',
-            'action' => $this->generateUrl('record_delete', ['id' => $record->getId()]),
-        ]);
+
+        $form = $this->createForm(
+            FormType::class,
+            $record,
+            [
+                'method' => 'DELETE',
+                'action' => $this->generateUrl('record_delete', ['id' => $record->getId()]),
+            ]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -295,7 +299,7 @@ class RecordController extends AbstractController
                 'record' => $record,
             ]
         );
-    }
+    }// end delete()
 
     /**
      * Get filters from request.
@@ -313,5 +317,5 @@ class RecordController extends AbstractController
         $filters['author_id'] = $request->query->getInt('filters_author_id');
 
         return $filters;
-    }
-}
+    }// end getFilters()
+}// end class

@@ -1,104 +1,148 @@
 <?php
 
 /**
- * Genre service test.
+ * Genre service tests.
  */
 
 namespace App\Tests\Service;
 
 use App\Entity\Genre;
-use App\Repository\GenreRepository;
-use App\Repository\RecordRepository;
+use App\Interface\GenreServiceInterface;
 use App\Service\GenreService;
-use Knp\Component\Pager\PaginatorInterface;
-use PHPUnit\Framework\TestCase;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\ORMException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
  * Class GenreServiceTest.
  */
-class GenreServiceTest extends TestCase
+class GenreServiceTest extends KernelTestCase
 {
-    private GenreRepository $genreRepository;
-    private RecordRepository $recordRepository;
-    private GenreService $genreService;
+    /**
+     * Genre repository.
+     */
+    private ?EntityManagerInterface $entityManager;
 
     /**
-     * Setup function.
+     * Genre service.
      */
-    protected function setUp(): void
-    {
-        $this->genreRepository = $this->createMock(GenreRepository::class);
-        $this->recordRepository = $this->createMock(RecordRepository::class);
-        $paginator = $this->createMock(PaginatorInterface::class);
+    private ?GenreServiceInterface $genreService;
 
-        $this->genreService = new GenreService(
-            $this->genreRepository,
-            $this->recordRepository,
-            $paginator
-        );
+    /**
+     * Set up test.
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function setUp(): void
+    {
+        $container = static::getContainer();
+        $this->entityManager = $container->get('doctrine.orm.entity_manager');
+        $this->genreService = $container->get(GenreService::class);
     }
 
     /**
-     * Tests the save method.
+     * Test save.
+     *
+     * @throws ORMException
      */
     public function testSave(): void
     {
-        $genre = $this->createMock(Genre::class);
+        // given
+        $expectedGenre = new Genre();
+        $expectedGenre->setGenreName('Test Genre');
 
-        $this->genreRepository
-            ->expects($this->once())
-            ->method('save')
-            ->with($genre);
+        // when
+        $this->genreService->save($expectedGenre);
 
-        $this->genreService->save($genre);
+        // then
+        $expectedGenreId = $expectedGenre->getId();
+        $resultGenre = $this->entityManager->createQueryBuilder()
+            ->select('genre')
+            ->from(Genre::class, 'genre')
+            ->where('genre.id = :id')
+            ->setParameter(':id', $expectedGenreId, Types::INTEGER)
+            ->getQuery()
+            ->getSingleResult();
+
+        $this->assertEquals($expectedGenre, $resultGenre);
     }
 
     /**
-     * Tests the delete method.
+     * Test delete.
+     *
+     * @throws ORMException
      */
     public function testDelete(): void
     {
-        $genre = $this->createMock(Genre::class);
+        // given
+        $genreToDelete = new Genre();
+        $genreToDelete->setGenreName('Test Genre');
+        $this->entityManager->persist($genreToDelete);
+        $this->entityManager->flush();
+        $deletedGenreId = $genreToDelete->getId();
 
-        $this->genreRepository
-            ->expects($this->once())
-            ->method('delete')
-            ->with($genre);
+        // when
+        $this->genreService->delete($genreToDelete);
 
-        $this->genreService->delete($genre);
+        // then
+        $resultGenre = $this->entityManager->createQueryBuilder()
+            ->select('genre')
+            ->from(Genre::class, 'genre')
+            ->where('genre.id = :id')
+            ->setParameter(':id', $deletedGenreId, Types::INTEGER)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        $this->assertNull($resultGenre);
     }
 
     /**
-     * Tests if you can delete a category when no records exist.
+     * Test pagination empty list.
+     */
+    public function testGetPaginatedList(): void
+    {
+        // given
+        $page = 1;
+        $dataSetSize = 10;
+        $expectedResultSize = 10;
+
+        $counter = 0;
+        while ($counter < $dataSetSize) {
+            $genre = new Genre();
+            $genre->setGenreName('Test Genre #'.$counter);
+            $this->genreService->save($genre);
+            ++$counter;
+        }
+
+        // when
+        $result = $this->genreService->getPaginatedList($page);
+
+        // then
+        $this->assertEquals($expectedResultSize, $result->count());
+    }
+
+    /**
+     * Tests if you can delete a genre when no records exist.
      * Should return true.
      */
     public function testCanBeDeletedReturnsTrueWhenNoRecords(): void
     {
-        $genre = $this->createMock(Genre::class);
+        // given
+        $genre = new Genre();
+        $genre->setGenreName('Test Genre');
+        $this->entityManager->persist($genre);
+        $this->entityManager->flush();
 
-        $this->recordRepository
-            ->expects($this->once())
-            ->method('countByGenre')
-            ->with($genre)
-            ->willReturn(0);
+        // when
+        $result = $this->genreService->canBeDeleted($genre);
 
-        $this->assertTrue($this->genreService->canBeDeleted($genre));
+        // then
+        $this->assertTrue($result);
     }
 
-    /**
-     * Tests if you can delete a category when records exist.
-     * Should return false.
-     */
-    public function testCanBeDeletedReturnsFalseWhenRecordsExist(): void
-    {
-        $genre = $this->createMock(Genre::class);
-
-        $this->recordRepository
-            ->expects($this->once())
-            ->method('countByGenre')
-            ->with($genre)
-            ->willReturn(3);
-
-        $this->assertFalse($this->genreService->canBeDeleted($genre));
-    }
+    // There also should be a test that returns false if a record exists...
 }

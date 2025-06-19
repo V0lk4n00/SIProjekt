@@ -18,9 +18,7 @@ RUN apt-get update && \
     docker-php-source delete
 
 # Install MySQL extension
-RUN docker-php-source extract && \
-    docker-php-ext-install pdo_mysql zip && \
-    docker-php-source delete
+RUN docker-php-ext-install pdo pdo_mysql
 
 # Install Intl
 RUN docker-php-source extract && \
