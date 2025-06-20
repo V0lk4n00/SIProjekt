@@ -1,5 +1,83 @@
+   1) src/Security/LoginFormAuthenticator.php (global_namespace_import, no_unused_imports)
 
-Found 0 of 43 files that can be fixed in 1.016 seconds, 18.000 MB memory used
+Found 1 of 43 files that can be fixed in 0.880 seconds, 18.00 MB memory used
+
+Found 0 of 8 files that can be fixed in 0.282 seconds, 18.00 MB memory used
+WARNING: The Symfony standard uses 1 deprecated sniff
+-------------------------------------------------------------------------------
+-  Generic.Functions.CallTimePassByReference
+   This sniff has been deprecated since v3.12.1 and will be removed in v4.0.0.
+
+Deprecated sniffs are still run, but will stop working at some point in the future.
+
+
+FILE: /home/wwwroot/app/src/Security/Voter/RecordVoter.php
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 56 | ERROR | Doc comment for parameter "$auth" missing
+----------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/src/Service/RecordService.php
+------------------------------------------------------------------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+------------------------------------------------------------------------------------------------------------------------------
+ 51 | ERROR | Declare all the arguments on the same line as the method/function name, no matter how many arguments there are.
+------------------------------------------------------------------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/src/Service/GenreService.php
+------------------------------------------------------------------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+------------------------------------------------------------------------------------------------------------------------------
+ 44 | ERROR | Declare all the arguments on the same line as the method/function name, no matter how many arguments there are.
+------------------------------------------------------------------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/src/Service/AuthorService.php
+------------------------------------------------------------------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+------------------------------------------------------------------------------------------------------------------------------
+ 45 | ERROR | Declare all the arguments on the same line as the method/function name, no matter how many arguments there are.
+------------------------------------------------------------------------------------------------------------------------------
+
+Time: 1.43 secs; Memory: 10MB
+
+WARNING: The Symfony standard uses 1 deprecated sniff
+-------------------------------------------------------------------------------
+-  Generic.Functions.CallTimePassByReference
+   This sniff has been deprecated since v3.12.1 and will be removed in v4.0.0.
+
+Deprecated sniffs are still run, but will stop working at some point in the future.
+
+
+FILE: /home/wwwroot/app/tests/Controller/RecordControllerTest.php
+----------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+----------------------------------------------------------------------
+ 213 | ERROR | Doc comment for parameter "$user" missing
+ 216 | ERROR | Missing @return tag in function comment
+----------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/tests/Service/RecordServiceTest.php
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 247 | ERROR | Missing @return tag in function comment
+----------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/tests/Service/ReservationServiceTest.php
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 229 | ERROR | Missing @return tag in function comment
+----------------------------------------------------------------------
+
+Time: 488ms; Memory: 10MB
+
  ------- -------- ---- ---------------------- 
   State   Domain   Id   Message Preview (en)  
  ------- -------- ---- ---------------------- 
@@ -8,11 +86,10 @@ Found 0 of 43 files that can be fixed in 1.016 seconds, 18.000 MB memory used
   State   Domain   Id   Message Preview (pl)   Fallback Message Preview (en)  
  ------- -------- ---- ---------------------- ------------------------------- 
 
-[notice] Migrating up to DoctrineMigrations\Version20230705090356
-[notice] finished in 12207.3ms, used 22M memory, 1 migrations executed, 10 sql queries
+[notice] Migrating up to DoctrineMigrations\Version20250520173006
+[notice] finished in 1350ms, used 24M memory, 1 migrations executed, 10 sql queries
 
- [OK] Successfully migrated to version : DoctrineMigrations\Version20230705090356                                       
-
+ [OK] Successfully migrated to version: DoctrineMigrations\Version20250520173006                                        
 
 
    > purging database

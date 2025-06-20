@@ -184,7 +184,7 @@ class RecordControllerTest extends WebTestCase
     }
 
     /**
-     * Create user.
+     * Create fake user.
      *
      * @param array $roles User roles
      *
@@ -211,6 +211,10 @@ class RecordControllerTest extends WebTestCase
     }
 
     /**
+     * Create fake record.
+     *
+     * @param User $user
+     * @return Record
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */

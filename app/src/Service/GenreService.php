@@ -41,11 +41,8 @@ class GenreService implements GenreServiceInterface
      * @param RecordRepository   $recordRepository Record repository
      * @param PaginatorInterface $paginator        Paginator
      */
-    public function __construct(
-        GenreRepository $genreRepository,
-        RecordRepository $recordRepository,
-        PaginatorInterface $paginator,
-    ) {
+    public function __construct(GenreRepository $genreRepository, RecordRepository $recordRepository, PaginatorInterface $paginator)
+    {
         $this->genreRepository = $genreRepository;
         $this->recordRepository = $recordRepository;
         $this->paginator = $paginator;

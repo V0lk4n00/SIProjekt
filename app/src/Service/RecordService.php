@@ -48,12 +48,8 @@ class RecordService implements RecordServiceInterface
      * @param GenreServiceInterface  $genreService     Genre service
      * @param PaginatorInterface     $paginator        Paginator
      */
-    public function __construct(
-        RecordRepository $recordRepository,
-        AuthorServiceInterface $authorService,
-        GenreServiceInterface $genreService,
-        PaginatorInterface $paginator,
-    ) {
+    public function __construct(RecordRepository $recordRepository, AuthorServiceInterface $authorService, GenreServiceInterface $genreService, PaginatorInterface $paginator)
+    {
         $this->recordRepository = $recordRepository;
         $this->genreService = $genreService;
         $this->authorService = $authorService;

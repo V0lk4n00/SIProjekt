@@ -244,6 +244,7 @@ class RecordServiceTest extends KernelTestCase
      * Create fake user.
      *
      * @throws ContainerExceptionInterface|NotFoundExceptionInterface|ORMException|OptimisticLockException
+     * @return User
      */
     private function createUser(): User
     {
