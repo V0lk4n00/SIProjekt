@@ -18,6 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Genre|null findOneBy(array $criteria, array $orderBy = null)
  * @method Genre[]    findAll()
  * @method Genre[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method findOneById(int $id)
  */
 class GenreRepository extends ServiceEntityRepository
 {

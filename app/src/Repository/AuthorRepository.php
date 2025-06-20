@@ -18,6 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Author|null findOneBy(array $criteria, array $orderBy = null)
  * @method Author[]    findAll()
  * @method Author[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method findOneById(int $id)
  *
  * @extends ServiceEntityRepository<Author>
  *
