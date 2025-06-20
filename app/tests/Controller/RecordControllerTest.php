@@ -6,7 +6,10 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\Author;
 use App\Entity\Enum\UserRole;
+use App\Entity\Genre;
+use App\Entity\Record;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Exception\ORMException;
@@ -26,7 +29,7 @@ class RecordControllerTest extends WebTestCase
      *
      * @const string
      */
-    public const TEST_ROUTE = '/ebay';
+    public const TEST_ROUTE = '/ebay/records';
 
     /**
      * Create test route.
@@ -73,8 +76,8 @@ class RecordControllerTest extends WebTestCase
     {
         // given
         $expectedStatusCode = 200;
-        $adminUser = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
-        $this->httpClient->loginUser($adminUser);
+        $user = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
+        $this->httpClient->loginUser($user);
 
         // when
         $this->httpClient->request('GET', self::TEST_ROUTE_CREATE);
@@ -98,6 +101,86 @@ class RecordControllerTest extends WebTestCase
 
         // then
         $this->assertEquals($expectedStatusCode, $resultStatusCode);
+    }
+
+    /**
+     * Show route test.
+     *
+     * @throws OptimisticLockException
+     * @throws NotFoundExceptionInterface
+     * @throws ORMException
+     * @throws ContainerExceptionInterface
+     */
+    public function testShowRoute(): void
+    {
+        $user = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
+        $this->httpClient->loginUser($user);
+
+        $recordId = $this->createRecordOwnedBy($user);
+
+        $this->httpClient->request('GET', '/ebay/records/'.$recordId->getId());
+
+        $this->assertResponseIsSuccessful();
+    }
+
+    /**
+     * Edit route test.
+     *
+     * @throws OptimisticLockException
+     * @throws NotFoundExceptionInterface
+     * @throws ORMException
+     * @throws ContainerExceptionInterface
+     */
+    public function testEditRoute(): void
+    {
+        $user = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
+        $this->httpClient->loginUser($user);
+
+        $recordId = $this->createRecordOwnedBy($user)->getId();
+
+        $this->httpClient->request('GET', "/ebay/records/$recordId/edit");
+
+        $this->assertResponseIsSuccessful();
+    }
+
+    /**
+     * Edit quantity route test.
+     *
+     * @throws OptimisticLockException
+     * @throws NotFoundExceptionInterface
+     * @throws ORMException
+     * @throws ContainerExceptionInterface
+     */
+    public function testEditQuantityRoute(): void
+    {
+        $user = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
+        $this->httpClient->loginUser($user);
+
+        $recordId = $this->createRecordOwnedBy($user)->getId();
+
+        $this->httpClient->request('GET', "/ebay/records/$recordId/edit/quantity");
+
+        $this->assertResponseIsSuccessful();
+    }
+
+    /**
+     * Delete route test.
+     *
+     * @throws OptimisticLockException
+     * @throws NotFoundExceptionInterface
+     * @throws ORMException
+     * @throws ContainerExceptionInterface
+     */
+    public function testDeleteRoute(): void
+    {
+        $user = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
+        $this->httpClient->loginUser($user);
+
+        $recordId = $this->createRecordOwnedBy($user)->getId();
+
+        $this->httpClient->request('GET', "/ebay/records/$recordId/delete");
+
+        $this->assertResponseIsSuccessful();
     }
 
     /**
@@ -125,5 +208,34 @@ class RecordControllerTest extends WebTestCase
         $userRepository->save($user);
 
         return $user;
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    private function createRecordOwnedBy(User $user): Record
+    {
+        $entityManager = static::getContainer()->get('doctrine')->getManager();
+
+        $genre = new Genre();
+        $genre->setGenreName('Test Genre');
+        $entityManager->persist($genre);
+
+        $author = new Author();
+        $author->setAlias('Test Author');
+        $entityManager->persist($author);
+
+        $record = new Record();
+        $record->setTitle('Test Record');
+        $record->setAuthor($author);
+        $record->setGenre($genre);
+        $record->setRental($user);
+        $record->setInStock(1);
+
+        $entityManager->persist($record);
+        $entityManager->flush();
+
+        return $record;
     }
 }

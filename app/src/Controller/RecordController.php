@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -66,7 +66,7 @@ class RecordController extends AbstractController
         );
 
         return $this->render('ebay/records/records.html.twig', ['pagination' => $pagination]);
-    }// end index()
+    }
 
     /**
      * Show action.
@@ -97,7 +97,7 @@ class RecordController extends AbstractController
             'ebay/records/show.html.twig',
             ['record' => $record]
         );
-    }// end show()
+    }
 
     /**
      * Create action.
@@ -141,7 +141,7 @@ class RecordController extends AbstractController
             'ebay/records/create.html.twig',
             ['form' => $form->createView()]
         );
-    }// end create()
+    }
 
     /**
      * Edit action.
@@ -197,7 +197,7 @@ class RecordController extends AbstractController
                 'record' => $record,
             ]
         );
-    }// end edit()
+    }
 
     /**
      * Edit quantity action.
@@ -207,7 +207,12 @@ class RecordController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/edit/quantity', name: 'record_edit_quantity', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    #[Route(
+        '/{id}/edit/quantity',
+        name: 'record_edit_quantity',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: 'GET|PUT'
+    )]
     #[IsGranted('EDIT', subject: 'record')]
     public function editQuantity(Request $request, Record $record): Response
     {
@@ -248,7 +253,7 @@ class RecordController extends AbstractController
                 'record' => $record,
             ]
         );
-    }// end editQuantity()
+    }
 
     /**
      * Delete action.
@@ -299,7 +304,7 @@ class RecordController extends AbstractController
                 'record' => $record,
             ]
         );
-    }// end delete()
+    }
 
     /**
      * Get filters from request.
@@ -317,5 +322,5 @@ class RecordController extends AbstractController
         $filters['author_id'] = $request->query->getInt('filters_author_id');
 
         return $filters;
-    }// end getFilters()
-}// end class
+    }
+}

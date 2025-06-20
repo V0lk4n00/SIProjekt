@@ -14,13 +14,33 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class LandingPageControllerTest extends WebTestCase
 {
     /**
-     * Landing page /ebay route test.
+     * Default test route.
+     *
+     * @const string
      */
-    public function testIndex(): void
-    {
-        $client = static::createClient();
-        $client->request('GET', '/ebay');
+    public const TEST_ROUTE = '/ebay';
 
-        $this->assertResponseIsSuccessful();
+    /**
+     * Set up tests.
+     */
+    public function setUp(): void
+    {
+        $this->httpClient = static::createClient();
+    }
+
+    /**
+     * Test index route for anonymous user.
+     */
+    public function testCreateRouteAnonymousUser(): void
+    {
+        // given
+        $expectedStatusCode = 200;
+
+        // when
+        $this->httpClient->request('GET', self::TEST_ROUTE);
+        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
+
+        // then
+        $this->assertEquals($expectedStatusCode, $resultStatusCode);
     }
 }
