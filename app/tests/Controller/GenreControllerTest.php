@@ -169,6 +169,10 @@ class GenreControllerTest extends WebTestCase
     }
 
     /**
+     * Create fake genre.
+     *
+     * @return Genre Genre
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */

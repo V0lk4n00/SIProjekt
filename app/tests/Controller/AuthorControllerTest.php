@@ -169,6 +169,10 @@ class AuthorControllerTest extends WebTestCase
     }
 
     /**
+     * Create fake author.
+     *
+     * @return Author Author
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
