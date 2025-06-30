@@ -30,7 +30,7 @@ class AuthorControllerTest extends WebTestCase
     public const TEST_ROUTE = '/ebay/authors';
 
     /**
-     * Create test route.
+     * Create a test route.
      *
      * @const string
      */
@@ -142,7 +142,7 @@ class AuthorControllerTest extends WebTestCase
     }
 
     /**
-     * Create fake user.
+     * Create a fake user.
      *
      * @param array $roles User roles
      *
@@ -169,7 +169,7 @@ class AuthorControllerTest extends WebTestCase
     }
 
     /**
-     * Create fake author.
+     * Create a fake author.
      *
      * @return Author Author
      *
