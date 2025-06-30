@@ -213,8 +213,6 @@ class RecordControllerTest extends WebTestCase
     /**
      * Create fake record.
      *
-     * @param User $user
-     *
      * @return Record Record
      *
      * @throws ContainerExceptionInterface|NotFoundExceptionInterface

@@ -1,7 +1,7 @@
 
-Found 0 of 43 files that can be fixed in 0.870 seconds, 18.00 MB memory used
+Found 0 of 43 files that can be fixed in 1.108 seconds, 18.00 MB memory used
 
-Found 0 of 11 files that can be fixed in 0.401 seconds, 18.00 MB memory used
+Found 0 of 11 files that can be fixed in 0.416 seconds, 18.00 MB memory used
 WARNING: The Symfony standard uses 1 deprecated sniff
 -------------------------------------------------------------------------------
 -  Generic.Functions.CallTimePassByReference
@@ -17,7 +17,7 @@ FOUND 1 ERROR AFFECTING 1 LINE
  56 | ERROR | Doc comment for parameter "$auth" missing
 ----------------------------------------------------------------------
 
-Time: 1.53 secs; Memory: 10MB
+Time: 1.52 secs; Memory: 10MB
 
 WARNING: The Symfony standard uses 1 deprecated sniff
 -------------------------------------------------------------------------------
@@ -29,19 +29,17 @@ Deprecated sniffs are still run, but will stop working at some point in the futu
 
 FILE: /home/wwwroot/app/tests/Controller/RecordControllerTest.php
 ----------------------------------------------------------------------
-FOUND 2 ERRORS AFFECTING 2 LINES
+FOUND 1 ERROR AFFECTING 1 LINE
 ----------------------------------------------------------------------
  213 | ERROR | Doc comment for parameter "$user" missing
- 218 | ERROR | Missing @return tag in function comment
 ----------------------------------------------------------------------
 
 
 FILE: /home/wwwroot/app/tests/Controller/ReservationControllerTest.php
 ----------------------------------------------------------------------
-FOUND 2 ERRORS AFFECTING 2 LINES
+FOUND 1 ERROR AFFECTING 1 LINE
 ----------------------------------------------------------------------
  190 | ERROR | Doc comment for parameter "$user" missing
- 195 | ERROR | Missing @return tag in function comment
 ----------------------------------------------------------------------
 
 
@@ -60,7 +58,7 @@ FOUND 1 ERROR AFFECTING 1 LINE
  229 | ERROR | Missing @return tag in function comment
 ----------------------------------------------------------------------
 
-Time: 716ms; Memory: 10MB
+Time: 748ms; Memory: 10MB
 
  ------- -------- ---- ---------------------- 
   State   Domain   Id   Message Preview (en)  
@@ -71,7 +69,7 @@ Time: 716ms; Memory: 10MB
  ------- -------- ---- ---------------------- ------------------------------- 
 
 [notice] Migrating up to DoctrineMigrations\Version20250630101606
-[notice] finished in 1223.9ms, used 24M memory, 1 migrations executed, 10 sql queries
+[notice] finished in 1880.9ms, used 24M memory, 1 migrations executed, 10 sql queries
 
  [OK] Successfully migrated to version: DoctrineMigrations\Version20250630101606                                        
 
