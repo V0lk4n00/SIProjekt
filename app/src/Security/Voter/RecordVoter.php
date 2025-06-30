@@ -55,6 +55,8 @@ class RecordVoter extends Voter
 
     /**
      * Constructor.
+     *
+     * @param AuthorizationCheckerInterface $auth
      */
     public function __construct(AuthorizationCheckerInterface $auth)
     {
@@ -62,10 +64,10 @@ class RecordVoter extends Voter
     }
 
     /**
-     * Determines if the attribute and subject are supported by this voter.
+     * Determines if this voter supports the attribute and subject.
      *
      * @param string $attribute An attribute
-     * @param mixed  $subject   The subject to secure, e.g. an object the user wants to access or any other PHP type
+     * @param mixed  $subject   The subject to secure, e.g., an object the user wants to access or any other PHP type
      *
      * @return bool Result
      */
@@ -108,7 +110,7 @@ class RecordVoter extends Voter
     }
 
     /**
-     * Checks if user can create a record.
+     * Checks if a user can create a record.
      *
      * @param Record $record Record entity
      * @param User   $user   User
@@ -121,7 +123,7 @@ class RecordVoter extends Voter
     }
 
     /**
-     * Checks if user can edit a record.
+     * Checks if a user can edit a record.
      *
      * @param Record $record Record entity
      * @param User   $user   User
@@ -134,7 +136,7 @@ class RecordVoter extends Voter
     }
 
     /**
-     * Checks if user can view a record.
+     * Checks if a user can view a record.
      *
      * @param Record $record Record entity
      * @param User   $user   User
@@ -147,7 +149,7 @@ class RecordVoter extends Voter
     }
 
     /**
-     * Checks if user can delete a record.
+     * Checks if a user can delete a record.
      *
      * @param Record $record Record entity
      * @param User   $user   User

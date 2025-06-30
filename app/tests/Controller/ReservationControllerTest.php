@@ -33,7 +33,7 @@ class ReservationControllerTest extends WebTestCase
     public const TEST_ROUTE = '/ebay/reservations';
 
     /**
-     * Create test route.
+     * Create a test route.
      *
      * @const string
      */
@@ -161,7 +161,7 @@ class ReservationControllerTest extends WebTestCase
     }
 
     /**
-     * Create fake user.
+     * Create a fake user.
      *
      * @param array $roles User roles
      *
@@ -190,8 +190,11 @@ class ReservationControllerTest extends WebTestCase
     /**
      * Create fake record.
      *
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
+     * @param User $user
+     *
+     * @return Record Record
+     *
+     * @throws ContainerExceptionInterface|NotFoundExceptionInterface
      */
     private function createRecordOwnedBy(User $user): Record
     {
